@@ -82,4 +82,53 @@
     white-space: nowrap;
     border-width: 0;
   }
+
+  /* Scroll reveal (used with IntersectionObserver) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 3D tilt cards */
+  .tilt-card {
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+  }
+
+  /* Subtle scanline / CRT toggle (enabled via body.scanlines) */
+  body.scanlines::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 191, 255, 0.025) 3px,
+      rgba(0, 0, 0, 0) 4px
+    );
+    mix-blend-mode: overlay;
+  }
+}
+
+/* Respect reduced motion: disable all reveal/tilt transitions */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .tilt-card {
+    transform: none !important;
+  }
 }

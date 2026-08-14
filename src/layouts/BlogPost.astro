@@ -5,6 +5,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import Effects from '../components/Effects.astro';
+import HiddenTerminal from '../components/HiddenTerminal.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -57,5 +59,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			</article>
 		</main>
 		<Footer />
+		<Effects />
+		<HiddenTerminal />
 	</body>
 </html>

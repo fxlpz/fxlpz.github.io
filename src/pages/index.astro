@@ -7,6 +7,10 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME } from '../consts';
 import avatarImg from '../assets/avatar.png';
+import HeroCanvas from '../components/HeroCanvas.astro';
+import Effects from '../components/Effects.astro';
+import HiddenTerminal from '../components/HiddenTerminal.astro';
+import AsciiSeparator from '../components/AsciiSeparator.astro';
 
 // Get latest 3 blog posts
 const posts = (await getCollection('blog'))
@@ -17,6 +21,18 @@ const posts = (await getCollection('blog'))
 <!doctype html>
 <html lang="pt-BR" class="scroll-smooth">
 	<head>
+		<!--
+   ______   _  _____ _     ______ ____________
+  |  ___| | |/  ___| |    | ___ \___  /___  /
+  | |_    | |\ `--.| |    | |_/ /  / /   / /
+  |  _|   | | `--. \ |    |  __/  / /   / /
+  | |     | |/\__/ / |____| |   ./ /___/ /___
+  \_|     \_/\____/\_____/\_|   \_____/\____/
+
+  [!] Looking under the hood? Nice recon work.
+  [!] Contact me: felipe.rosa.secdev@gmail.com
+  [!] Press ` (backtick) anytime to open the interactive shell.
+		-->
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body class="flex flex-col min-h-screen text-[var(--color-text-primary)] bg-[var(--color-gray-dark)] selection:bg-accent selection:text-gray-darker">
@@ -26,6 +42,7 @@ const posts = (await getCollection('blog'))
 		<section class="relative min-h-[90vh] flex items-center justify-center py-16 overflow-hidden border-b border-[var(--color-gray-medium)]">
 			<!-- Background cyber grids -->
 			<div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(0,191,255,0.15),rgba(255,255,255,0))]"></div>
+				<HeroCanvas />
 			<div class="absolute inset-y-0 right-0 w-1/2 bg-[linear-gradient(to_right,transparent_95%,rgba(0,191,255,0.05))] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]"></div>
 
 			<div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -43,7 +60,7 @@ const posts = (await getCollection('blog'))
 						</h1>
 						<div class="font-mono text-[var(--color-text-muted)] text-lg flex flex-wrap items-center gap-2">
 							<span>└─$ ./run</span>
-							<span class="text-accent font-semibold">"OffSec / Pentest / Bug Bounty"</span>
+							<span class="text-accent font-semibold" id="typed-text">"OffSec / Pentest / Bug Bounty"</span>
 						</div>
 					</div>
 
@@ -100,12 +117,14 @@ const posts = (await getCollection('blog'))
 			</div>
 		</section>
 
+		<AsciiSeparator />
+
 		<!-- Sobre Section -->
 		<section id="sobre" class="py-24 border-b border-[var(--color-gray-medium)] relative">
 			<div class="max-w-6xl mx-auto px-4 sm:px-6">
 				<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
 					<!-- Title -->
-					<div class="lg:col-span-4 space-y-4">
+					<div class="lg:col-span-4 space-y-4 reveal">
 						<div class="font-mono text-accent text-sm tracking-wider uppercase">// 01. QUEM SOU EU</div>
 						<h2 class="text-3xl font-mono font-bold text-[var(--color-text-primary)]">
 							&gt; A_Vantagem_Dev
@@ -145,7 +164,7 @@ const posts = (await getCollection('blog'))
 		<!-- Bug Bounty & CTFs Section -->
 		<section id="hacker-profiles" class="py-24 border-b border-[var(--color-gray-medium)] bg-[var(--color-gray-darker)]/40">
 			<div class="max-w-6xl mx-auto px-4 sm:px-6">
-				<div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+				<div class="text-center max-w-2xl mx-auto mb-16 space-y-4 reveal">
 					<div class="font-mono text-accent text-sm tracking-wider uppercase">// 02. PROVAS DE CONCEITO</div>
 					<h2 class="text-3xl font-mono font-bold text-[var(--color-text-primary)]">
 						Plataformas de Recon & Atuação
@@ -157,7 +176,7 @@ const posts = (await getCollection('blog'))
 
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 					<!-- HackerOne -->
-					<div class="p-8 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group">
+					<div class="p-8 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group tilt-card">
 						<div>
 							<div class="flex items-center justify-between mb-6">
 								<div class="font-mono font-bold text-accent">H1 / BUG BOUNTY</div>
@@ -175,7 +194,7 @@ const posts = (await getCollection('blog'))
 					</div>
 
 					<!-- TryHackMe -->
-					<div class="p-8 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group">
+					<div class="p-8 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group tilt-card">
 						<div>
 							<div class="flex items-center justify-between mb-6">
 								<div class="font-mono font-bold text-accent">THM / LABS</div>
@@ -193,7 +212,7 @@ const posts = (await getCollection('blog'))
 					</div>
 
 					<!-- HackTheBox -->
-					<div class="p-8 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group">
+					<div class="p-8 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group tilt-card">
 						<div>
 							<div class="flex items-center justify-between mb-6">
 								<div class="font-mono font-bold text-accent">HTB / HARDENING</div>
@@ -218,7 +237,7 @@ const posts = (await getCollection('blog'))
 			<div class="max-w-6xl mx-auto px-4 sm:px-6">
 				<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
 					<!-- Title -->
-					<div class="lg:col-span-4 space-y-4">
+					<div class="lg:col-span-4 space-y-4 reveal">
 						<div class="font-mono text-accent text-sm tracking-wider uppercase">// 03. HABILIDADES</div>
 						<h2 class="text-3xl font-mono font-bold text-[var(--color-text-primary)]">
 							&gt; Stack_&amp;_Tools
@@ -296,7 +315,7 @@ const posts = (await getCollection('blog'))
 			<div class="max-w-6xl mx-auto px-4 sm:px-6">
 				<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
 					<!-- Title -->
-					<div class="lg:col-span-4 space-y-4">
+					<div class="lg:col-span-4 space-y-4 reveal">
 						<div class="font-mono text-accent text-sm tracking-wider uppercase">// 04. EXPERIÊNCIA</div>
 						<h2 class="text-3xl font-mono font-bold text-[var(--color-text-primary)]">
 							&gt; Histórico_Profissional
@@ -361,7 +380,7 @@ const posts = (await getCollection('blog'))
 			<div class="max-w-6xl mx-auto px-4 sm:px-6">
 				<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
 					<!-- Title -->
-					<div class="lg:col-span-4 space-y-4">
+					<div class="lg:col-span-4 space-y-4 reveal">
 						<div class="font-mono text-accent text-sm tracking-wider uppercase">// 05. FORMAÇÃO & CERTIFICAÇÕES</div>
 						<h2 class="text-3xl font-mono font-bold text-[var(--color-text-primary)]">
 							&gt; Certificacoes
@@ -429,7 +448,7 @@ const posts = (await getCollection('blog'))
 		<!-- Blog section -->
 		<section class="py-24 border-b border-[var(--color-gray-medium)] bg-[var(--color-gray-darker)]/40">
 			<div class="max-w-6xl mx-auto px-4 sm:px-6">
-				<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-16">
+				<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-16 reveal">
 					<div class="space-y-4">
 						<div class="font-mono text-accent text-sm tracking-wider uppercase">// 06. ÚLTIMOS WRITE-UPS</div>
 						<h2 class="text-3xl font-mono font-bold text-[var(--color-text-primary)]">
@@ -443,7 +462,7 @@ const posts = (await getCollection('blog'))
 
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 					{posts.map((post) => (
-						<article class="p-6 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group">
+						<article class="p-6 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group tilt-card">
 							<div>
 								<div class="flex items-center justify-between gap-2 mb-4 font-mono text-xs text-[var(--color-text-muted)]">
 									<FormattedDate date={post.data.pubDate} />
@@ -513,5 +532,7 @@ const posts = (await getCollection('blog'))
 		</section>
 
 		<Footer />
-	</body>
+		<Effects />
+			<HiddenTerminal />
+		</body>
 </html>

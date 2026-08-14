@@ -1,0 +1,33 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead title={`404 | ${SITE_TITLE}`} description="Página não encontrada" />
+	</head>
+	<body class="flex flex-col min-h-screen text-[var(--color-text-primary)] bg-[var(--color-gray-dark)]">
+		<Header />
+		<main class="flex-grow flex items-center justify-center px-4">
+			<div class="text-center font-mono space-y-6">
+				<div class="text-6xl sm:text-8xl font-bold text-accent">404</div>
+				<div class="text-xl text-[var(--color-text-muted)]">$ connection refused: route not found</div>
+				<div class="text-sm text-[var(--color-text-muted)]">
+					<span class="text-accent">┌─[felipe@sec]</span><br />
+					<span>└─$ ./retry --redirect=home</span>
+				</div>
+				<a
+					href="/"
+					class="inline-block mt-4 px-6 py-3 bg-accent text-[var(--color-gray-darker)] font-semibold rounded-lg hover:bg-accent/80 transition-all"
+				>
+					$ cd ~/
+				</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
