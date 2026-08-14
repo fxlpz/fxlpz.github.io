@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "system-ui", "sans-serif";
+  --font-mono: "Source Code Pro", "monospace";
+
+  --color-accent: #00BFFF;
+  --color-accent-dark: #008CDC;
+
+  --color-gray-dark: #0f1115; /* Base hacker background */
+  --color-gray-darker: #080a0c; /* Deep shadow/footer bg */
+  --color-gray-medium: #1f2329; /* Card borders */
+  --color-gray-light: #2c313a; /* Card hover background */
+  --color-text-primary: #e5e9f0;
+  --color-text-muted: #8c97aa;
+
+  --color-danger: #FF4F4F;
+  --color-success: #22C55E;
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--color-gray-dark)] text-[var(--color-text-primary)] font-sans antialiased m-0 p-0;
+  }
+
+  ::selection {
+    @apply bg-accent text-gray-darker;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mono font-semibold tracking-tight text-[var(--color-text-primary)] leading-tight mt-0 mb-4;
+  }
+
+  a {
+    @apply text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent-dark)];
+  }
+
+  /* Typography Markdown/Blog Content */
+  .prose {
+    @apply text-[var(--color-text-primary)] text-lg leading-relaxed;
+  }
+  .prose p {
+    @apply mb-6;
+  }
+  .prose a {
+    @apply border-b border-accent/30 no-underline hover:border-accent;
+  }
+  .prose h1, .prose h2, .prose h3 {
+    @apply mt-10 mb-4;
+  }
+  .prose code {
+    @apply font-mono text-sm px-1.5 py-0.5 rounded-md bg-[var(--color-gray-medium)] text-[var(--color-accent)];
+  }
+  .prose pre {
+    @apply p-4 rounded-lg bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] overflow-x-auto mb-6 text-sm font-mono;
+  }
+  .prose pre code {
+    @apply bg-transparent text-inherit p-0;
+  }
+  .prose blockquote {
+    @apply border-l-4 border-[var(--color-accent)] pl-4 italic text-[var(--color-text-muted)] my-6;
+  }
+  .prose img {
+    @apply rounded-lg my-6 border border-[var(--color-gray-medium)];
+  }
+  .prose ul, .prose ol {
+    @apply pl-6 mb-6 space-y-2;
+  }
+  .prose li::marker {
+    @apply text-[var(--color-accent)];
+  }
+
+  /* Utility classes */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
