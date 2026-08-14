@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import avatarImg from '../assets/avatar.png';
+---
+
+<BaseLayout title="Sobre Mim">
+	<div class="space-y-12">
+		<!-- Section Header -->
+		<div class="space-y-3 reveal">
+			<span class="page-eyebrow">// 01. IDENTITY</span>
+			<h1 class="text-3xl sm:text-4xl font-mono font-bold text-[var(--color-text)]">
+				&gt; Sobre_o_Analista
+			</h1>
+			<div class="w-16 h-0.5 bg-[var(--color-accent)]"></div>
+		</div>
+
+		<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+			<!-- Text Left -->
+			<div class="lg:col-span-8 space-y-6 text-base sm:text-lg text-[var(--color-text-dim)] leading-relaxed">
+				<p>
+					Minha atuação em segurança ofensiva é fundamentada em uma sólida bagagem de <strong class="text-white">3+ anos de desenvolvimento Full Stack (Java/React)</strong> e suporte N2. Essa transição me confere uma vantagem crucial na análise de vulnerabilidades lógicas e revisão de código-fonte: eu entendo como a aplicação foi estruturada do outro lado, permitindo ir além das assinaturas de scanners automáticos.
+				</p>
+				<p>
+					Formado em <strong class="text-white">Segurança da Informação pela PUC Minas</strong> e com a certificação prática <strong class="text-white">DCPT (Desec Certified Penetration Tester)</strong> em andamento, combino teoria avançada com aplicação contínua em projetos reais através da plataforma <strong class="text-white">HackerOne</strong> e da criação de scripts de automação ofensiva em Python e GoLang.
+				</p>
+
+				<div class="term-frame font-mono text-xs p-4 bg-[var(--color-panel-2)] border border-[var(--color-line)] space-y-2 select-all">
+					<div class="text-[var(--color-text-mute)]">// metadata.json</div>
+					<div>{`{`}</div>
+					<div class="pl-4">"name": "Felipe da Silva Rosa",</div>
+					<div class="pl-4">"location": "Jundiaí, SP, Brasil",</div>
+					<div class="pl-4">"degree": "B.S. Information Security (PUC Minas)",</div>
+					<div class="pl-4">"languages": ["Português (Native)", "Inglês (Tech Document/Report Write-up)"]</div>
+					<div>{`}`}</div>
+				</div>
+			</div>
+
+			<!-- Visual Info Right -->
+			<div class="lg:col-span-4 space-y-6">
+				<div class="p-6 rounded-lg bg-[var(--color-panel)] border border-[var(--color-line)] space-y-4">
+					<h3 class="font-mono text-xs uppercase tracking-wider text-[var(--color-text-mute)] border-b border-[var(--color-line)] pb-2 m-0">
+						Estatísticas Gerais
+					</h3>
+					<ul class="space-y-3 font-mono text-xs">
+						<li class="flex justify-between">
+							<span class="text-[var(--color-text-dim)]">Status:</span>
+							<span class="text-[var(--color-success)] flex items-center gap-1">
+								<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-success)] animate-pulse"></span>
+								Active / OffSec
+							</span>
+						</li>
+						<li class="flex justify-between">
+							<span class="text-[var(--color-text-dim)]">H1 Rep:</span>
+							<span class="text-white">Active Program</span>
+						</li>
+						<li class="flex justify-between">
+							<span class="text-[var(--color-text-dim)]">TMA Support:</span>
+							<span class="text-[var(--color-accent)]">-63% Reduction</span>
+						</li>
+						<li class="flex justify-between">
+							<span class="text-[var(--color-text-dim)]">Automation:</span>
+							<span class="text-[var(--color-accent)]">40% Optimized</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>

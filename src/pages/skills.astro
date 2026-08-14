@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Habilidades">
+	<div class="space-y-12">
+		<!-- Section Header -->
+		<div class="space-y-3 reveal">
+			<span class="page-eyebrow">// 02. ARSENAL</span>
+			<h1 class="text-3xl sm:text-4xl font-mono font-bold text-[var(--color-text)]">
+				&gt; Habilidades_&amp;_Tools
+			</h1>
+			<div class="w-16 h-0.5 bg-[var(--color-accent)]"></div>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+			<!-- Segurança Ofensiva -->
+			<div class="p-6 rounded-lg bg-[var(--color-panel)] border border-[var(--color-line)] hover:border-[var(--color-accent)]/20 transition-all tilt space-y-4">
+				<h3 class="font-mono text-base font-bold text-[var(--color-accent)] border-b border-[var(--color-line)] pb-2 flex items-center gap-2 m-0">
+					<span>#</span> Segurança Ofensiva
+				</h3>
+				<ul class="space-y-2 text-sm text-[var(--color-text-dim)] font-mono">
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Pentest Web (OWASP Top 10)</li>
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Recon Avançado &amp; OSINT</li>
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Análise de JWT &amp; API Security</li>
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Identificação de IDOR / SSRF</li>
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Exploração Controlada &amp; PoC</li>
+				</ul>
+			</div>
+
+			<!-- Arsenal Ofensivo -->
+			<div class="p-6 rounded-lg bg-[var(--color-panel)] border border-[var(--color-line)] hover:border-[var(--color-accent)]/20 transition-all tilt space-y-4">
+				<h3 class="font-mono text-base font-bold text-[var(--color-accent)] border-b border-[var(--color-line)] pb-2 flex items-center gap-2 m-0">
+					<span>#</span> Arsenal Ofensivo
+				</h3>
+				<div class="flex flex-wrap gap-2 pt-2">
+					{['Kali Linux', 'Burp Suite', 'Nmap', 'Ffuf', 'Subfinder', 'Amass', 'SQLMap', 'Metasploit', 'Wireshark', 'Docker'].map(tool => (
+						<span class="px-2.5 py-1 rounded bg-[var(--color-panel-2)] border border-[var(--color-line)] text-xs text-[var(--color-text-dim)] font-mono">
+							{tool}
+						</span>
+					))}
+				</div>
+			</div>
+
+			<!-- Linguagens & Scripts -->
+			<div class="p-6 rounded-lg bg-[var(--color-panel)] border border-[var(--color-line)] hover:border-[var(--color-accent)]/20 transition-all tilt space-y-4">
+				<h3 class="font-mono text-base font-bold text-[var(--color-accent)] border-b border-[var(--color-line)] pb-2 flex items-center gap-2 m-0">
+					<span>#</span> Linguagens &amp; Scripts
+				</h3>
+				<div class="flex flex-wrap gap-2 pt-2">
+					{['Python (Exploits/Automação)', 'GoLang', 'Java (Spring Boot)', 'React.js', 'Shell Script', 'SQL'].map(lang => (
+						<span class="px-2.5 py-1 rounded bg-[var(--color-panel-2)] border border-[var(--color-line)] text-xs text-[var(--color-text-dim)] font-mono">
+							{lang}
+						</span>
+					))}
+				</div>
+			</div>
+
+			<!-- Infraestrutura & Redes -->
+			<div class="p-6 rounded-lg bg-[var(--color-panel)] border border-[var(--color-line)] hover:border-[var(--color-accent)]/20 transition-all tilt space-y-4">
+				<h3 class="font-mono text-base font-bold text-[var(--color-accent)] border-b border-[var(--color-line)] pb-2 flex items-center gap-2 m-0">
+					<span>#</span> Infraestrutura &amp; Redes
+				</h3>
+				<ul class="space-y-2 text-sm text-[var(--color-text-dim)] font-mono">
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Linux (Debian / Arch / RHEL)</li>
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Windows Server / AD (Active Directory)</li>
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Docker / Containerization</li>
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> TCP/IP &amp; Firewall Check Point</li>
+					<li class="flex items-center gap-2"><span class="text-[var(--color-accent)]">&gt;</span> Fundamentos Cisco &amp; Routing</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</BaseLayout>

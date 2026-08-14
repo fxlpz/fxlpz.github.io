@@ -1,0 +1,50 @@
+---
+// Compact terminal pill — expands into a small console when clicked.
+// Press ` (backtick) anywhere to toggle.
+---
+
+<!-- Pill trigger -->
+<button
+  id="term-pill"
+  type="button"
+  aria-label="Open terminal"
+  class="fixed bottom-5 right-5 z-[9999] flex items-center gap-2 px-3 h-9 font-mono text-xs bg-[var(--color-panel)] border border-[var(--color-line)] rounded-full text-[var(--color-text-dim)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all shadow-lg shadow-black/40"
+>
+  <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-success)] animate-pulse"></span>
+  <span>guest@sec</span>
+  <span class="text-[var(--color-text-mute)]">`</span>
+</button>
+
+<!-- Console -->
+<div
+  id="term-panel"
+  class="hidden fixed bottom-16 right-5 z-[9999] w-[min(92vw,440px)] max-h-[60vh] term-frame font-mono text-xs"
+>
+  <div class="term-bar">
+    <span class="term-dot term-dot-red"></span>
+    <span class="term-dot term-dot-yellow"></span>
+    <span class="term-dot term-dot-green"></span>
+    <span class="term-title">/dev/tty — secure-shell</span>
+  </div>
+
+  <div id="term-body" class="p-3 max-h-[42vh] overflow-y-auto bg-[var(--color-panel)] text-[var(--color-text)] leading-relaxed space-y-1">
+    <div class="text-[var(--color-accent)]">[*] handshake established — type 'help'</div>
+  </div>
+
+  <div class="flex items-center gap-2 px-3 py-2 border-t border-[var(--color-line-soft)] bg-[var(--color-panel-2)]">
+    <span class="text-[var(--color-accent)]">fxlpz@sec:~$</span>
+    <input
+      id="term-input"
+      type="text"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="help, whoami, skills, contact, blog, scanlines, clear, exit"
+      class="flex-1 bg-transparent outline-none text-[var(--color-text)] placeholder:text-[var(--color-text-mute)] min-w-0"
+    />
+  </div>
+</div>
+
+<style>
+  #term-body::-webkit-scrollbar { width: 6px; }
+  #term-body::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 4px; }
+</style>

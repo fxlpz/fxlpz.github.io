@@ -1,167 +1,179 @@
 ---
 // Global interactive effects: scroll-reveal, card tilt, typing effect,
-// and the hidden terminal easter egg. All respect prefers-reduced-motion.
+// and the compact terminal easter egg.
 ---
 
 <script>
-// ---------- Scroll Reveal ----------
-(function () {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const els = document.querySelectorAll('.reveal');
-  if (reduce || !('IntersectionObserver' in window)) {
-    els.forEach((el) => el.classList.add('is-visible'));
-    return;
-  }
-  const obs = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          (e.target as HTMLElement).classList.add('is-visible');
-          obs.unobserve(e.target);
-        }
-      }
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
-  els.forEach((el) => obs.observe(el));
-})();
+	// ---------- Scroll Reveal ----------
+	(function () {
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const els = document.querySelectorAll('.reveal');
+		if (reduce || !('IntersectionObserver' in window)) {
+			els.forEach((el) => el.classList.add('is-visible'));
+			return;
+		}
+		const obs = new IntersectionObserver(
+			(entries) => {
+				for (const e of entries) {
+					if (e.isIntersecting) {
+						(e.target as HTMLElement).classList.add('is-visible');
+						obs.unobserve(e.target);
+					}
+				}
+			},
+			{ threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+		);
+		els.forEach((el) => obs.observe(el));
+	})();
 
-// ---------- 3D Tilt (desktop only) ----------
-(function () {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const coarse = window.matchMedia('(pointer: coarse)').matches;
-  if (reduce || coarse) return;
+	// ---------- 3D Tilt (desktop only) ----------
+	(function () {
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const coarse = window.matchMedia('(pointer: coarse)').matches;
+		if (reduce || coarse) return;
 
-  const cards = document.querySelectorAll<HTMLElement>('.tilt-card');
-  cards.forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5;
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `perspective(900px) rotateY(${px * 6}deg) rotateX(${-py * 6}deg) translateZ(0)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
-    });
-  });
-})();
+		const cards = document.querySelectorAll<HTMLElement>('.tilt');
+		cards.forEach((card) => {
+			card.addEventListener('mousemove', (e) => {
+				const rect = card.getBoundingClientRect();
+				const px = (e.clientX - rect.left) / rect.width - 0.5;
+				const py = (e.clientY - rect.top) / rect.height - 0.5;
+				card.style.transform = `perspective(900px) rotateY(${px * 6}deg) rotateX(${-py * 6}deg) translateZ(0)`;
+				card.style.boxShadow = `0 25px 50px -12px rgba(0,0,0,0.6), 0 0 60px -20px rgba(0,191,255,${0.08 + Math.abs(px) * 0.08})`;
+			});
+			card.addEventListener('mouseleave', () => {
+				card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
+				card.style.boxShadow = '';
+			});
+		});
+	})();
 
-// ---------- Typing effect ----------
-(function () {
-  const el = document.getElementById('typed-text');
-  if (!el) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const phrases = [
-    'OffSec // Pentest Web // Bug Bounty',
-    'Analista de Segurança da Informação',
-    'Breaking authentication, one token at a time.',
-    'Recon → Exploit → Privesc → Root',
-  ];
-  if (reduce) {
-    el.textContent = phrases[0];
-    return;
-  }
-  let p = 0, c = 0, deleting = false;
-  function tick() {
-    const full = phrases[p];
-    el.textContent = full.substring(0, c);
-    if (!deleting && c < full.length) {
-      c++;
-      setTimeout(tick, 55);
-    } else if (!deleting && c === full.length) {
-      deleting = true;
-      setTimeout(tick, 1800);
-    } else if (deleting && c > 0) {
-      c--;
-      setTimeout(tick, 28);
-    } else {
-      deleting = false;
-      p = (p + 1) % phrases.length;
-      setTimeout(tick, 400);
-    }
-  }
-  tick();
-})();
+	// ---------- Typing effect ----------
+	(function () {
+		const el = document.getElementById('typed-text');
+		if (!el) return;
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const phrases = [
+			'OffSec // Pentest Web // Bug Bounty',
+			'Analista de Segurança da Informação',
+			'Breaking authentication, one token at a time.',
+			'Recon → Exploit → Privesc → Root',
+		];
+		if (reduce) {
+			el.textContent = phrases[0];
+			return;
+		}
+		let p = 0, c = 0, deleting = false;
+		function tick() {
+			const full = phrases[p];
+			el.textContent = full.substring(0, c);
+			if (!deleting && c < full.length) {
+				c++;
+				setTimeout(tick, 55);
+			} else if (!deleting && c === full.length) {
+				deleting = true;
+				setTimeout(tick, 1800);
+			} else if (deleting && c > 0) {
+				c--;
+				setTimeout(tick, 28);
+			} else {
+				deleting = false;
+				p = (p + 1) % phrases.length;
+				setTimeout(tick, 400);
+			}
+		}
+		tick();
+	})();
 
-// ---------- Hidden Terminal Easter Egg ----------
-(function () {
-  const term = document.getElementById('easter-terminal');
-  const input = document.getElementById('easter-input') as HTMLInputElement | null;
-  if (!term || !input) return;
+	// ---------- Terminal Logic ----------
+	(function () {
+		const panel = document.getElementById('term-panel');
+		const pill = document.getElementById('term-pill');
+		const input = document.getElementById('term-input') as HTMLInputElement | null;
+		const body = document.body;
+		const output = document.getElementById('term-body');
 
-  const body = document.body;
-  const output = document.getElementById('easter-output');
+		if (!panel || !pill || !input || !output) return;
 
-  const responses: Record<string, string> = {
-    help: 'Comandos disponíveis:\n  whoami   - identidade\n  skills   - stack ofensiva\n  contact  - canais\n  blog     - write-ups\n  scanlines - alterna efeito CRT\n  clear    - limpa\n  exit     - fecha o terminal',
-    whoami:
-      'felipe@sec (~)$ Analista de Segurança da Informação\n  Nome: Felipe da Silva Rosa\n  Local: Jundiaí, SP\n  Foco: Pentest Web, Bug Bounty, Seg. Ofensiva',
-    skills:
-      '> Segurança Ofensiva: OWASP Top 10, IDOR, SSRF, JWT, ACL\n> Ferramentas: Burp, Nmap, Ffuf, Subfinder, Metasploit\n> Linguagens: Python, GoLang, Java, React, Shell\n> Infra: Linux, Windows Server, Docker, TCP/IP',
-    contact:
-      'Email: felipe.rosa.secdev@gmail.com\nLinkedIn: linkedin.com/in/felipe0x01\nX: x.com/FelipeBuffer\nGitHub: github.com/fxlpz',
-    blog: 'Redirecionando para /blog ...\n(dica: use os filtros por categoria)',
+		const responses: Record<string, string> = {
+			help: '��─ Commands ─────────────────────��\n│ help      — this list\n│ whoami    — identity\n│ skills    — offensive stack\n│ contact   — channels\n│ blog      — write-ups\n│ scanlines — toggle CRT effect\n│ clear     — wipe buffer\n│ exit      — close shell\n��────────────────────────────────��',
+			whoami: 'felipe@sec (~)$ Analista de Segurança da Informação\n  Nome: Felipe da Silva Rosa\n  Local: Jundiaí, SP\n  Foco: Pentest Web, Bug Bounty, Seg. Ofensiva',
+			skills: '> Segurança Ofensiva: OWASP Top 10, IDOR, SSRF, JWT, ACL\n> Ferramentas: Burp, Nmap, Ffuf, Subfinder, Metasploit\n> Linguagens: Python, GoLang, Java, React, Shell\n> Infra: Linux, Windows Server, Docker, TCP/IP',
+			contact: 'Email: felipe.rosa.secdev@gmail.com\nLinkedIn: linkedin.com/in/felipe0x01\nX: x.com/FelipeBuffer\nGitHub: github.com/fxlpz',
+			blog: 'Redirecionando para /blog ...',
 
-    clear: '__CLEAR__',
-    exit: '__CLOSE__',
-  };
+			clear: '__CLEAR__',
+			exit: '__CLOSE__',
+		};
 
-  function print(text: string, cls = '') {
-    if (!output) return;
-    const line = document.createElement('div');
-    if (cls) line.className = cls;
-    line.textContent = text;
-    output.appendChild(line);
-    term.scrollTop = term.scrollHeight;
-  }
+		function print(text: string, cls = '') {
+			if (!output) return;
+			const line = document.createElement('div');
+			if (cls) line.className = cls;
+			line.textContent = text;
+			output.appendChild(line);
+			panel.scrollTop = panel.scrollHeight;
+		}
 
-  function run(raw: string) {
-    const cmd = raw.trim().toLowerCase();
-    if (!cmd) return;
-    print('felipe@sec:~$ ' + raw, 'text-accent');
-    if (cmd === 'scanlines') {
-      body.classList.toggle('scanlines');
-      print('[+] scanlines ' + (body.classList.contains('scanlines') ? 'ON' : 'OFF'));
-      return;
-    }
-    if (cmd === 'blog') {
-      print(responses[cmd]);
-      setTimeout(() => (window.location.href = '/blog'), 900);
-      return;
-    }
-    const resp = responses[cmd];
-    if (resp === '__CLEAR__') {
-      output.innerHTML = '';
-      return;
-    }
-    if (resp === '__CLOSE__') {
-      term.classList.add('hidden');
-      return;
-    }
-    if (resp) {
-      print(resp);
-    } else {
-      print(`comando não encontrado: ${cmd} (tente 'help')`, 'text-[var(--color-danger)]');
-    }
-  }
+		function run(raw: string) {
+			const cmd = raw.trim().toLowerCase();
+			if (!cmd) return;
+			print('fxlpz@sec:~$ ' + raw, 'text-[var(--color-accent)]');
+			if (cmd === 'scanlines') {
+				body.classList.toggle('scanlines');
+				print('[+] scanlines ' + (body.classList.contains('scanlines') ? 'ON' : 'OFF'));
+				return;
+			}
+			if (cmd === 'blog') {
+				print(responses[cmd]);
+				setTimeout(() => (window.location.href = '/blog'), 900);
+				return;
+			}
+			const resp = responses[cmd];
+			if (resp === '__CLEAR__') {
+				output.innerHTML = '';
+				return;
+			}
+			if (resp === '__CLOSE__') {
+				panel.classList.add('hidden');
+				pill.classList.remove('hidden');
+				return;
+			}
+			if (resp) {
+				print(resp);
+			} else {
+				print(`command not found: ${cmd} (try 'help')`, 'text-[var(--color-danger)]');
+			}
+		}
 
-  // Open with backtick key
-  window.addEventListener('keydown', (e) => {
-    if (e.key === '`' || (e.key === '~' && e.shiftKey)) {
-      term.classList.remove('hidden');
-      setTimeout(() => input.focus(), 50);
-      e.preventDefault();
-    }
-    if (e.key === 'Escape' && !term.classList.contains('hidden')) {
-      term.classList.add('hidden');
-    }
-  });
+		// Toggle with backtick
+		window.addEventListener('keydown', (e) => {
+			if (e.key === '`' || (e.key === '~' && e.shiftKey)) {
+				e.preventDefault();
+				const isHidden = panel.classList.contains('hidden');
+				panel.classList.toggle('hidden', !isHidden);
+				pill.classList.toggle('hidden', isHidden);
+				if (isHidden) setTimeout(() => input?.focus(), 50);
+			}
+			if (e.key === 'Escape' && !panel.classList.contains('hidden')) {
+				panel.classList.add('hidden');
+				pill.classList.remove('hidden');
+			}
+		});
 
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      run(input.value);
-      input.value = '';
-    }
-  });
-})();
+		// Pill click
+		pill.addEventListener('click', () => {
+			const isHidden = panel.classList.contains('hidden');
+			panel.classList.toggle('hidden', !isHidden);
+			pill.classList.toggle('hidden', isHidden);
+			if (isHidden) setTimeout(() => input?.focus(), 50);
+		});
+
+		input.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter') {
+				run(input.value);
+				input.value = '';
+			}
+		});
+	})();
 </script>

@@ -1,23 +1,39 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+const path = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 bg-[var(--color-gray-darker)]/90 backdrop-blur-md border-b border-[var(--color-gray-medium)]">
-	<div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-		<!-- Brand Logo/Prompt -->
-		<a href="/" class="flex items-center gap-2 font-mono font-bold text-lg text-[var(--color-text-primary)] hover:text-accent group transition-colors">
-			<span class="text-accent group-hover:animate-pulse">&gt;</span>
-			<span>fxlpz<span class="text-accent font-normal">@sec</span><span class="text-[var(--color-text-muted)]">:~$</span></span>
+<header class="sticky top-0 z-50 bg-[var(--color-bg)]/80 backdrop-blur-lg border-b border-[var(--color-line)]">
+	<div class="max-w-5xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
+		<!-- Brand -->
+		<a href="/" class="group flex items-center gap-2 font-mono font-bold text-base text-[var(--color-text)] hover:text-white">
+			<span class="text-[var(--color-accent)] transition-transform group-hover:scale-110">●</span>
+			<span>fxlpz<span class="text-[var(--color-accent)] font-normal">@sec</span><span class="text-[var(--color-text-mute)]">:~$</span></span>
 		</a>
 
-		<!-- Navigation Links -->
-		<nav class="flex items-center gap-1 sm:gap-6 font-mono text-sm">
-			<HeaderLink href="/">./home</HeaderLink>
-			<HeaderLink href="/#sobre">./sobre</HeaderLink>
-			<HeaderLink href="/#skills">./skills</HeaderLink>
-			<HeaderLink href="/#experiencia">./xp</HeaderLink>
-			<HeaderLink href="/blog">./blog</HeaderLink>
-			<HeaderLink href="/#contato">./contato</HeaderLink>
+		<!-- Nav (desktop) -->
+		<nav class="hidden md:flex items-center gap-1 font-mono text-sm">
+			<HeaderLink href="/">home</HeaderLink>
+			<HeaderLink href="/sobre">sobre</HeaderLink>
+			<HeaderLink href="/skills">skills</HeaderLink>
+			<HeaderLink href="/experiencia">xp</HeaderLink>
+			<HeaderLink href="/blog">blog</HeaderLink>
+			<HeaderLink href="/contato">contato</HeaderLink>
 		</nav>
+
+		<!-- Mobile toggle -->
+		<details class="md:hidden relative">
+			<summary class="cursor-pointer list-none font-mono text-[var(--color-accent)] text-sm px-3 py-1 border border-[var(--color-line)] rounded-md select-none">
+				menu
+			</summary>
+			<div class="absolute right-0 mt-2 w-44 bg-[var(--color-panel)] border border-[var(--color-line)] rounded-lg p-2 font-mono text-sm shadow-xl">
+				<HeaderLink href="/" class="block px-3 py-2 rounded hover:bg-[var(--color-panel-2)]">/ home</HeaderLink>
+				<HeaderLink href="/sobre" class="block px-3 py-2 rounded hover:bg-[var(--color-panel-2)]">/ sobre</HeaderLink>
+				<HeaderLink href="/skills" class="block px-3 py-2 rounded hover:bg-[var(--color-panel-2)]">/ skills</HeaderLink>
+				<HeaderLink href="/experiencia" class="block px-3 py-2 rounded hover:bg-[var(--color-panel-2)]">/ xp</HeaderLink>
+				<HeaderLink href="/blog" class="block px-3 py-2 rounded hover:bg-[var(--color-panel-2)]">/ blog</HeaderLink>
+				<HeaderLink href="/contato" class="block px-3 py-2 rounded hover:bg-[var(--color-panel-2)]">/ contato</HeaderLink>
+			</div>
+		</details>
 	</div>
 </header>

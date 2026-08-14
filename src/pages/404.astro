@@ -1,33 +1,23 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
-<!doctype html>
-<html lang="pt-BR">
-	<head>
-		<BaseHead title={`404 | ${SITE_TITLE}`} description="Página não encontrada" />
-	</head>
-	<body class="flex flex-col min-h-screen text-[var(--color-text-primary)] bg-[var(--color-gray-dark)]">
-		<Header />
-		<main class="flex-grow flex items-center justify-center px-4">
-			<div class="text-center font-mono space-y-6">
-				<div class="text-6xl sm:text-8xl font-bold text-accent">404</div>
-				<div class="text-xl text-[var(--color-text-muted)]">$ connection refused: route not found</div>
-				<div class="text-sm text-[var(--color-text-muted)]">
-					<span class="text-accent">┌─[felipe@sec]</span><br />
-					<span>└─$ ./retry --redirect=home</span>
-				</div>
-				<a
-					href="/"
-					class="inline-block mt-4 px-6 py-3 bg-accent text-[var(--color-gray-darker)] font-semibold rounded-lg hover:bg-accent/80 transition-all"
-				>
-					$ cd ~/
-				</a>
+<BaseLayout title={`404 | ${SITE_TITLE}`}>
+	<div class="min-h-[60vh] flex items-center justify-center">
+		<div class="text-center font-mono space-y-6">
+			<div class="text-6xl sm:text-8xl font-bold text-[var(--color-accent)] glow-text">404</div>
+			<div class="text-lg text-[var(--color-text-dim)]">$ connection refused: route not found</div>
+			<div class="text-sm text-[var(--color-text-mute)] pt-2">
+				<span class="text-[var(--color-accent)]">┌─[guest@sec]</span><br />
+				<span>└─$ ./retry --redirect=home</span>
 			</div>
-		</main>
-		<Footer />
-	</body>
-</html>
+			<a
+				href="/"
+				class="inline-block mt-8 px-6 py-3 bg-[var(--color-panel-2)] text-[var(--color-text)] border border-[var(--color-line)] rounded-lg hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all"
+			>
+				$ cd ~/
+			</a>
+		</div>
+	</div>
+</BaseLayout>

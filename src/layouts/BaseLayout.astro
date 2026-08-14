@@ -1,0 +1,41 @@
+---
+import type { ImageMetadata } from 'astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Effects from '../components/Effects.astro';
+import Terminal from '../components/Terminal.astro';
+import NetworkBg from '../components/NetworkBg.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: ImageMetadata;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+	<head>
+		<BaseHead title={title} description={description} image={image} />
+	</head>
+	<body class="flex flex-col min-h-screen text-[var(--color-text)] bg-[var(--color-bg)] relative overflow-x-hidden">
+		<!-- Background Elements -->
+		<div class="fixed inset-0 grid-backdrop z-0 pointer-events-none"></div>
+		<NetworkBg />
+
+		<!-- Main Layout -->
+		<div class="relative z-10 flex flex-col min-h-screen">
+			<Header />
+			<main class="flex-grow w-full max-w-5xl mx-auto px-5 sm:px-8 py-12">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+
+		<Effects />
+		<Terminal />
+	</body>
+</html>

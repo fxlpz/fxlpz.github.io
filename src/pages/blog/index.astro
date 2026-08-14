@@ -1,181 +1,169 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import Effects from '../../components/Effects.astro';
-import HiddenTerminal from '../../components/HiddenTerminal.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-// Unique categories and tags
 const categories = ['Todos', 'Machine Write-ups', 'Dicas da Área', 'Conhecimento'];
 const allTags = Array.from(
 	new Set(posts.flatMap((post) => post.data.tags))
 ).sort();
 ---
 
-<!doctype html>
-<html lang="pt-BR" class="scroll-smooth">
-	<head>
-		<BaseHead title={`Blog | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-	</head>
-	<body class="flex flex-col min-h-screen text-[var(--color-text-primary)]">
-		<Header />
-		<main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 py-16 w-full">
-			<!-- Hero -->
-			<div class="space-y-4 mb-12">
-				<div class="font-mono text-accent text-sm tracking-wider uppercase">// ./blog/</div>
-				<h1 class="text-4xl sm:text-5xl font-mono font-bold text-[var(--color-text-primary)]">
-					Write-ups & Artigos
-				</h1>
-				<p class="text-[var(--color-text-muted)] text-lg max-w-2xl">
-					Coleção de artigos técnicos: resolução de máquinas de CTF,
-					dicas rápidas e teoria fundamental de segurança ofensiva.
-				</p>
-			</div>
+<BaseLayout title="Write-ups & Artigos">
+	<div class="space-y-12">
+		<!-- Page title -->
+		<div class="space-y-3 reveal">
+			<span class="page-eyebrow">// ./blog/</span>
+			<h1 class="text-3xl sm:text-4xl font-mono font-bold text-[var(--color-text)]">
+				Write-ups & Artigos
+			</h1>
+			<div class="w-16 h-0.5 bg-[var(--color-accent)]"></div>
+			<p class="text-[var(--color-text-dim)] text-base sm:text-lg max-w-2xl pt-2">
+				Coleção de artigos técnicos: resolução de máquinas de CTF, dicas rápidas e teoria fundamental de segurança ofensiva.
+			</p>
+		</div>
 
-			<!-- Filter tabs -->
-			<div class="mb-12 space-y-6">
-				<div>
-					<span class="font-mono text-xs uppercase text-[var(--color-text-muted)] tracking-wider mb-3 block">// Categorias</span>
-					<div id="category-filters" class="flex flex-wrap gap-2 font-mono text-sm">
-						{categories.map((cat, i) => (
-							<button
-								class={`px-4 py-2 rounded-lg border transition-all ${
-									i === 0
-										? 'bg-accent text-[var(--color-gray-darker)] border-accent font-semibold'
-										: 'bg-transparent text-[var(--color-text-muted)] border-[var(--color-gray-medium)] hover:border-accent hover:text-accent'
-								}`}
-								data-category={cat}
-							>
-								{cat}
-							</button>
-						))}
-					</div>
-				</div>
-
-				<div>
-					<span class="font-mono text-xs uppercase text-[var(--color-text-muted)] tracking-wider mb-3 block">// Tags</span>
-					<div id="tag-filters" class="flex flex-wrap gap-2 font-mono text-xs">
-						{allTags.map((tag) => (
-							<button
-								class="px-3 py-1 rounded bg-[var(--color-gray-medium)] text-[var(--color-text-muted)] border border-[var(--color-gray-medium)] hover:border-accent hover:text-accent transition-all"
-								data-tag={tag}
-							>
-								#{tag}
-							</button>
-						))}
-					</div>
+		<!-- Filter tabs -->
+		<div class="mb-12 space-y-6 reveal">
+			<div>
+				<span class="font-mono text-[10px] uppercase text-[var(--color-text-mute)] tracking-wider mb-3 block">// Categorias</span>
+				<div id="category-filters" class="flex flex-wrap gap-2 font-mono text-xs">
+					{categories.map((cat, i) => (
+						<button
+							class={`px-3 py-1.5 rounded-lg border transition-all ${
+								i === 0
+									? 'bg-[var(--color-accent)] text-[var(--color-bg)] border-[var(--color-accent)] font-semibold'
+									: 'bg-transparent text-[var(--color-text-dim)] border-[var(--color-line)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]'
+							}`}
+							data-category={cat}
+						>
+							{cat}
+						</button>
+					))}
 				</div>
 			</div>
 
-			<!-- Posts Grid -->
-			<div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				{posts.map((post) => (
-					<article
-						class="post-card p-6 rounded-xl bg-[var(--color-gray-darker)] border border-[var(--color-gray-medium)] hover:border-accent/40 transition-all flex flex-col justify-between group"
-						data-category={post.data.category}
-						data-tags={post.data.tags.join(',')}
-					>
-						<div>
-							<div class="flex items-center justify-between gap-2 mb-4 font-mono text-xs text-[var(--color-text-muted)]">
-								<FormattedDate date={post.data.pubDate} />
-								<span class="px-2 py-0.5 rounded bg-[var(--color-gray-medium)] text-accent">{post.data.category}</span>
-							</div>
-							<h3 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors leading-snug font-mono">
-								<a href={`/blog/${post.id}/`}>-{post.data.title}</a>
-							</h3>
-							<p class="text-sm text-[var(--color-text-muted)] line-clamp-3 mb-4 font-sans leading-relaxed">
-								{post.data.description}
-							</p>
-						</div>
-						<div class="flex flex-wrap gap-1.5 mt-2 font-mono text-xs">
-							{post.data.tags.map((tag) => (
-								<span class="text-[var(--color-text-muted)]">#{tag}</span>
-							))}
-						</div>
-					</article>
-				))}
+			<div>
+				<span class="font-mono text-[10px] uppercase text-[var(--color-text-mute)] tracking-wider mb-3 block">// Tags</span>
+				<div id="tag-filters" class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+					{allTags.map((tag) => (
+						<button
+							class="px-2.5 py-1 rounded bg-[var(--color-panel)] text-[var(--color-text-dim)] border border-[var(--color-line)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all"
+							data-tag={tag}
+						>
+							#{tag}
+						</button>
+					))}
+				</div>
 			</div>
+		</div>
 
-			<!-- Empty State -->
-			<div id="empty-state" class="hidden text-center py-20">
-				<div class="font-mono text-accent text-2xl">$</div>
-				<p class="mt-4 text-[var(--color-text-muted)] font-mono">Nenhum post encontrado com esses filtros</p>
-			</div>
-		</main>
-		<Footer />
+		<!-- Posts Grid -->
+		<div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{posts.map((post) => (
+				<article
+					class="post-card p-6 rounded-xl bg-[var(--color-panel)] border border-[var(--color-line)] hover:border-[var(--color-accent)]/30 transition-all flex flex-col justify-between group tilt reveal"
+					data-category={post.data.category}
+					data-tags={post.data.tags.join(',')}
+				>
+					<div class="space-y-4">
+						<div class="flex items-center justify-between gap-2 font-mono text-xs text-[var(--color-text-mute)]">
+							<FormattedDate date={post.data.pubDate} />
+							<span class="px-2 py-0.5 rounded bg-[var(--color-panel-2)] text-[var(--color-accent)] border border-[var(--color-line)]">
+								{post.data.category}
+							</span>
+						</div>
+						<h3 class="text-base font-bold group-hover:text-[var(--color-accent)] transition-colors leading-snug font-mono">
+							<a href={`/blog/${post.id}/`} class="text-inherit hover:text-inherit border-none">{post.data.title}</a>
+						</h3>
+						<p class="text-xs text-[var(--color-text-dim)] line-clamp-3 leading-relaxed">
+							{post.data.description}
+						</p>
+					</div>
+					<div class="flex flex-wrap gap-1.5 mt-6 font-mono text-[10px]">
+						{post.data.tags.map((tag) => (
+							<span class="text-[var(--color-text-mute)]">#{tag}</span>
+						))}
+					</div>
+				</article>
+			))}
+		</div>
 
-		<script>
-			const categoryButtons = document.querySelectorAll('#category-filters button');
-			const tagButtons = document.querySelectorAll('#tag-filters button');
-			const cards = document.querySelectorAll('.post-card');
-			const emptyState = document.getElementById('empty-state');
+		<!-- Empty State -->
+		<div id="empty-state" class="hidden text-center py-20">
+			<div class="font-mono text-[var(--color-accent)] text-2xl">$</div>
+			<p class="mt-4 text-[var(--color-text-mute)] font-mono">Nenhum post encontrado com esses filtros</p>
+		</div>
+	</div>
+</BaseLayout>
 
-			let activeCategory = 'Todos';
-			let activeTags = new Set();
+<script>
+	const categoryButtons = document.querySelectorAll('#category-filters button');
+	const tagButtons = document.querySelectorAll('#tag-filters button');
+	const cards = document.querySelectorAll('.post-card');
+	const emptyState = document.getElementById('empty-state');
 
-			function applyFilters() {
-				let visibleCount = 0;
+	let activeCategory = 'Todos';
+	let activeTags = new Set();
 
-				cards.forEach((card) => {
-					const cardCategory = (card as HTMLElement).dataset.category;
-					const cardTags = ((card as HTMLElement).dataset.tags || '').split(',');
+	function applyFilters() {
+		let visibleCount = 0;
 
-					const matchesCategory = activeCategory === 'Todos' || cardCategory === activeCategory;
-					const matchesTags =
-						activeTags.size === 0 ||
-						[...activeTags].every((t) => cardTags.includes(t));
+		cards.forEach((card) => {
+			const cardCategory = (card as HTMLElement).dataset.category;
+			const cardTags = ((card as HTMLElement).dataset.tags || '').split(',');
 
-					if (matchesCategory && matchesTags) {
-						(card as HTMLElement).style.display = 'flex';
-						visibleCount++;
-					} else {
-						(card as HTMLElement).style.display = 'none';
-					}
-				});
+			const matchesCategory = activeCategory === 'Todos' || cardCategory === activeCategory;
+			const matchesTags =
+				activeTags.size === 0 ||
+				[...activeTags].every((t) => cardTags.includes(t));
 
-				if (visibleCount === 0) {
-					emptyState?.classList.remove('hidden');
-				} else {
-					emptyState?.classList.add('hidden');
-				}
+			if (matchesCategory && matchesTags) {
+				(card as HTMLElement).style.display = 'flex';
+				visibleCount++;
+			} else {
+				(card as HTMLElement).style.display = 'none';
 			}
+		});
 
-			categoryButtons.forEach((btn) => {
-				btn.addEventListener('click', () => {
-					categoryButtons.forEach((b) => {
-						b.classList.remove('bg-accent', 'text-[var(--color-gray-darker)]', 'border-accent', 'font-semibold');
-						b.classList.add('bg-transparent', 'text-[var(--color-text-muted)]', 'border-[var(--color-gray-medium)]');
-					});
-					btn.classList.remove('bg-transparent', 'text-[var(--color-text-muted)]', 'border-[var(--color-gray-medium)]');
-					btn.classList.add('bg-accent', 'text-[var(--color-gray-darker)]', 'border-accent', 'font-semibold');
+		if (visibleCount === 0) {
+			emptyState?.classList.remove('hidden');
+		} else {
+			emptyState?.classList.add('hidden');
+		}
+	}
 
-					activeCategory = (btn as HTMLElement).dataset.category || 'Todos';
-					applyFilters();
-				});
+	categoryButtons.forEach((btn) => {
+		btn.addEventListener('click', () => {
+			categoryButtons.forEach((b) => {
+				b.classList.remove('bg-[var(--color-accent)]', 'text-[var(--color-bg)]', 'border-[var(--color-accent)]', 'font-semibold');
+				b.classList.add('bg-transparent', 'text-[var(--color-text-dim)]', 'border-[var(--color-line)]');
 			});
+			btn.classList.remove('bg-transparent', 'text-[var(--color-text-dim)]', 'border-[var(--color-line)]');
+			btn.classList.add('bg-[var(--color-accent)]', 'text-[var(--color-bg)]', 'border-[var(--color-accent)]', 'font-semibold');
 
-			tagButtons.forEach((btn) => {
-				btn.addEventListener('click', () => {
-					const tag = (btn as HTMLElement).dataset.tag || '';
-					if (activeTags.has(tag)) {
-						activeTags.delete(tag);
-						btn.classList.remove('border-accent', 'text-accent');
-						btn.classList.add('border-[var(--color-gray-medium)]', 'text-[var(--color-text-muted)]');
-					} else {
-						activeTags.add(tag);
-						btn.classList.remove('border-[var(--color-gray-medium)]', 'text-[var(--color-text-muted)]');
-						btn.classList.add('border-accent', 'text-accent');
-					}
-					applyFilters();
-				});
-			});
-		</script>
-	</body>
-</html>
+			activeCategory = (btn as HTMLElement).dataset.category || 'Todos';
+			applyFilters();
+		});
+	});
+
+	tagButtons.forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const tag = (btn as HTMLElement).dataset.tag || '';
+			if (activeTags.has(tag)) {
+				activeTags.delete(tag);
+				btn.classList.remove('border-[var(--color-accent)]', 'text-[var(--color-accent)]');
+				btn.classList.add('border-[var(--color-line)]', 'text-[var(--color-text-dim)]');
+			} else {
+				activeTags.add(tag);
+				btn.classList.remove('border-[var(--color-line)]', 'text-[var(--color-text-dim)]');
+				btn.classList.add('border-[var(--color-accent)]', 'text-[var(--color-accent)]');
+			}
+			applyFilters();
+		});
+	});
+</script>
