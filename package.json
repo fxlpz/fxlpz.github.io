@@ -1,17 +1,16 @@
 {
-  "name": "code-forge",
+  "name": "fxlpz-portfolio",
   "version": "0.1.0",
   "private": true,
-  "description": "A modern code editor built with Next.js and Radix UI.",
+  "description": "Felipe Rosa's Digital Laboratory & Portfolio",
   "keywords": [
     "nextjs",
-    "radix-ui",
-    "code editor",
-    "react",
-    "typescript",
-    "tailwindcss"
+    "security",
+    "offensive-security",
+    "portfolio",
+    "bug-bounty"
   ],
-  "author": "Ehsan Ghaffar",
+  "author": "Felipe da Silva Rosa",
   "scripts": {
     "analyze": "next experimental-analyze",
     "build": "next build",
@@ -85,6 +84,10 @@
     "overrides": {
       "@types/react": "19.2.7",
       "@types/react-dom": "19.2.3"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "sharp"
+    ]
   }
 }
