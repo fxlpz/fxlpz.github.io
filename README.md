@@ -1,83 +1,72 @@
-# EinCode
+# FXLPZ · SEC
 
-A modern, minimal code editor / playground built with Next.js, React and Radix UI.
+Portfolio e blog pessoal de segurança ofensiva desenvolvido com Next.js 16 (App Router), React 19, TypeScript e Tailwind CSS v4, otimizado para exportação estática no GitHub Pages.
 
-Version: `0.1.1`
+## O que é este projeto
 
-## What the project does
+É o laboratório digital e centralizador de writeups, exploits e projetos open-source de **Felipe da Silva Rosa**, especialista em segurança ofensiva e desenvolvimento.
 
-Code Forge is a lightweight, opinionated editor UI and playground intended for experimenting with editor-like components and small developer tools. It demonstrates a modern stack including Next.js 16, React 19, TypeScript, Tailwind CSS and Radix UI primitives.
+- **Sobre o Analista**: Trajetória profissional, acadêmica e arsenal técnico (ferramentas e linguagens).
+- **Projetos**: Repositórios reais integrados (GoGuard-SIEM, VoidScope, Python NIDS, etc.).
+- **Blog & Writeups**: Guias de exploração detalhados e writeups de máquinas (Mr. Robot, Attacktive Directory, etc.) renderizados dinamicamente a partir de um parser Markdown personalizado.
 
-### Why this is useful
+## Stack Técnica
 
-- Fast developer playground to prototype editor UX and integrations.
-- Collection of reusable UI components (see `components/`).
-- Up-to-date with Next.js 16 and React 19 modern patterns (app router, server components).
+- **Framework**: Next.js 16.1.0 (Static Export)
+- **Biblioteca**: React 19
+- **Estilização**: Tailwind CSS v4 + Tailwind Animate
+- **Ícones**: Lucide React
+- **Gerenciador**: pnpm
 
-#### Key features
+## Como executar localmente
 
-- App shell and layout in `app/`
-- Reusable UI primitives under `components/` (cursor glow, header, footer, workbench, etc.)
-- Styling with Tailwind CSS and global styles in `styles/` and `app/globals.css`
-- TypeScript-first codebase
+### Pré-requisitos
 
-##### Getting started
+- Node.js v18 ou superior
+- pnpm instalado globalmente (`npm install -g pnpm`)
 
-Prerequisites
+### Início Rápido
 
-- Node.js 18 or newer
-- pnpm (recommended) — install from <https://pnpm.io/>
+1. Clone o repositório:
+```bash
+git clone git@github.com:fxlpz/fxlpz.github.io.git
+cd fxlpz.github.io
+```
 
-Quick start
-
-\`\`\`bash
-# install dependencies
+2. Instale as dependências:
+```bash
 pnpm install
+```
 
-# run development server
+3. Aprove os scripts de compilação necessários do Tailwind/PostCSS se o pnpm solicitar:
+```bash
+pnpm approve-builds
+```
+
+4. Inicie o servidor de desenvolvimento:
+```bash
 pnpm dev
-\`\`\`
+```
 
-Available scripts
+Acesse em `http://localhost:3000`.
 
-- `pnpm dev` — runs `next dev` (development server)
-- `pnpm build` — runs `next build` (production build)
-- `pnpm start` — runs `next start` (serve built app)
-- `pnpm lint` — run `eslint .`
+## Scripts Disponíveis
 
-Building for production
+- `pnpm dev` — Executa o servidor de desenvolvimento (`next dev`).
+- `pnpm build` — Compila a aplicação e gera a exportação estática na pasta `/out/` (`next build`).
+- `pnpm lint` — Executa a análise estática com o ESLint.
 
-\`\`\`bash
-pnpm build
-pnpm start
-\`\`\`
+## Deploy
 
-Project layout (high level)
-
-- `app/` — Next.js App Router pages and layout
-- `components/` — UI components and small feature pieces
-- `lib/` — utilities and helpers
-- `public/` — static assets
-- `styles/` — global styles and Tailwind CSS entry
-
-Where to get help
-
-- Create an issue: <https://github.com/ehsanghaffar/code-forge/issues>
-- For quick questions, open a discussion or file a concise issue with reproduction steps.
-
-Who maintains this project
-
-- Maintainer: Ehsan Ghaffar — listed as the package author.
-
-Contributing
-
-Contributions are welcome. Open an issue to discuss larger changes, or send a pull request with a focused, well-documented change. Keep changes small and include a description and screenshots (if UI-related).
-
-Notes and next steps
-
-- Consider adding a `CONTRIBUTING.md` and CI badges for build/lint status.
-- If you want, I can add a basic `CONTRIBUTING.md` and a PR template next.
+O deploy é feito de forma totalmente automática no **GitHub Pages** por meio do GitHub Actions configurado em `.github/workflows/deploy.yml` a cada push na branch `main`.
 
 ---
 
-If anything in this README should be adjusted (more examples, extra badges, or internal docs links), tell me which parts you want expanded and I'll update it.
+## Contato e Redes
+
+- **GitHub**: [fxlpz](https://github.com/fxlpz)
+- **LinkedIn**: [Felipe Rosa](https://www.linkedin.com/in/felipe0x01/)
+- **X / Twitter**: [@FelipeBuffer](https://x.com/FelipeBuffer)
+- **TryHackMe**: [Fxplz](https://tryhackme.com/p/Fxplz)
+- **HackTheBox**: [2483868](https://app.hackthebox.com/users/2483868)
+- **Email**: felipe.rosa.secdev@gmail.com
