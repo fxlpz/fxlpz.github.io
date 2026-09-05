@@ -29,13 +29,10 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 11
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
-
-      - name: Approve builds
-        run: pnpm config set onlyBuiltDependencies '["@tailwindcss/oxide", "sharp"]'
 
       - name: Build
         run: pnpm build

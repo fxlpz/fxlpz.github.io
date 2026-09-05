@@ -7,6 +7,27 @@ import { Shield, Briefcase, Award, Clock, ArrowUpRight, GraduationCap } from "lu
 const experiences = [
   {
     id: 0,
+    company: "Kernel Solutions",
+    role: "Analista de Cibersegurança Pleno",
+    period: "Setembro 2026 · Presente",
+    description: [
+      "Atuação em operações híbridas de cibersegurança (Purple Team), unindo monitoramento defensivo, resposta a incidentes e testes ofensivos controlados.",
+      "Execução de testes de invasão (Pentest) e simulações de Red Team para identificar, explorar e documentar vulnerabilidades em aplicações e infraestrutura corporativa.",
+      "Monitoramento contínuo e triagem de alertas de segurança utilizando Microsoft Sentinel e Microsoft 365 Defender.",
+      "Desenvolvimento de consultas em Kusto Query Language (KQL) para Threat Hunting e validação de logs gerados durante as simulações de ataque.",
+      "Atuação estratégica na ponte entre ataque e defesa, auxiliando na remediação de falhas e na criação de regras de detecção mais eficientes.",
+    ],
+    tech: [
+      "Penetration Testing (Pentest)",
+      "Red Team Operations",
+      "Microsoft Sentinel & Defender",
+      "Threat Hunting (KQL)",
+      "Resposta a Incidentes (Blue Team)",
+      "Vulnerability Assessment",
+    ],
+  },
+  {
+    id: 1,
     company: "Mitutoyo Sul Americana",
     role: "Estagiário de Suporte de Informática",
     period: "Março 2025 · Março 2026",
@@ -18,7 +39,7 @@ const experiences = [
     tech: ["ITSM", "Windows Active Directory", "Networking", "Troubleshooting"],
   },
   {
-    id: 1,
+    id: 2,
     company: "FUMAS (Fundação Municipal de Ação Social)",
     role: "Estagiário de Suporte",
     period: "Fevereiro 2024 · Março 2025",
@@ -30,7 +51,7 @@ const experiences = [
     tech: ["Cisco IOS", "Check Point Firewall", "TCP/IP", "Windows Server"],
   },
   {
-    id: 2,
+    id: 3,
     company: "SAM (Sistema de Atendimento Médico)",
     role: "Desenvolvedor Full Stack",
     period: "Janeiro 2023 · Janeiro 2024",
