@@ -1,6 +1,8 @@
 import type { BlogPost } from './blog-data'
 
 export function generateBlogPostStructuredData(post: BlogPost, url: string) {
+  const minutes = Number.parseInt(post.readTime, 10)
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -15,8 +17,8 @@ export function generateBlogPostStructuredData(post: BlogPost, url: string) {
       url: 'https://github.com/fxlpz',
     },
     publisher: {
-      '@type': 'Person',
-      name: 'Felipe da Silva Rosa',
+      '@type': 'Organization',
+      name: 'FXLPZ',
       url: 'https://fxlpz.github.io',
     },
     mainEntityOfPage: {
@@ -25,7 +27,7 @@ export function generateBlogPostStructuredData(post: BlogPost, url: string) {
     },
     articleSection: post.category,
     keywords: post.tags.join(', '),
-    timeRequired: post.readTime,
+    ...(Number.isFinite(minutes) ? { timeRequired: `PT${minutes}M` } : {}),
   }
 }
 

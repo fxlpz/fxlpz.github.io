@@ -23,7 +23,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://eindev.ir'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://fxlpz.github.io'),
   title: {
     default: "FXLPZ · Felipe Rosa's Digital Laboratory",
     template: "%s | FXLPZ",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   generator: "v0.app",
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "pt_BR",
     url: "/",
     title: "FXLPZ · Felipe Rosa's Digital Laboratory",
     description: "Especialista em segurança ofensiva, pentest web e bug bounty. Experimentos, writeups e projetos open-source por Felipe da Silva Rosa.",
@@ -95,7 +95,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}>
+    <html lang="pt-BR" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}>
       <body className="font-sans antialiased overflow-x-hidden w-full relative">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true} storageKey="theme-mode">
           {children}

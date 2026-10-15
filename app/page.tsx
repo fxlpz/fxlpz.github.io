@@ -1,7 +1,7 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
+import { LatestWriteups } from "@/components/latest-writeups"
 import { ProjectsGrid } from "@/components/projects-grid"
-import { LabNotes } from "@/components/lab-notes"
 import { Footer } from "@/components/footer"
 import { CursorGlow } from "@/components/cursor-glow"
 import { generateWebsiteStructuredData, generatePersonStructuredData } from "@/lib/structured-data"
@@ -26,8 +26,8 @@ export default function Home() {
         <div className="relative z-10">
           <Header />
           <HeroSection />
+          <LatestWriteups />
           <ProjectsGrid />
-          <LabNotes />
           <Footer />
         </div>
       </main>

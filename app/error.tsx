@@ -16,7 +16,7 @@ export default function Error({
   }, [error])
 
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body>
         <div className="min-h-screen flex items-center justify-center px-4">
           <div className="max-w-2xl text-center">

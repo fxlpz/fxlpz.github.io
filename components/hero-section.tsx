@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { blogPosts } from "@/lib/blog-data"
+import { projects } from "@/components/projects-grid"
 
 const roles = ["hacking the web", "hunting bugs", "breaking barriers", "forging exploits", "doing recon"]
 
@@ -36,99 +38,69 @@ export function HeroSection() {
 
   return (
     <section className="relative px-4 sm:px-6 pt-28 sm:pt-36 pb-16 sm:pb-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 lg:items-center lg:min-h-[70vh]">
-          {/* Left column - Text */}
-          <div className="space-y-8 sm:space-y-10">
-            <div className="space-y-3 animate-fade-in-up">
-              <p className="font-mono text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-primary">
-                FXLPZ · Where Sec Meets Curiosity
-              </p>
-              <h1 className="text-4xl font-bold tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl text-balance">
-                Forging digital
-                <br />
-                <span
-                  className="bg-gradient-to-l from-primary/50 to-accent text-transparent bg-clip-text typing-cursor"
-                >
-                  {displayText}
-                </span>
-              </h1>
-            </div>
+      <div className="mx-auto max-w-4xl">
+        <div className="space-y-8 sm:space-y-10">
+          <p className="font-mono text-sm text-muted-foreground animate-fade-in-up">
+            <span className="text-primary">~$</span> whoami{" "}
+            <span className="text-foreground">Felipe da Silva Rosa</span>
+          </p>
 
-            <p className="max-w-lg text-base sm:text-lg leading-relaxed text-muted-foreground animate-fade-in-up stagger-2">
-              Bem-vindo ao meu laboratório digital · um espaço para writeups, experimentos em segurança ofensiva e projetos open-source. Especialista em{" "}
-              <span className="text-foreground font-medium">Pentest Web & Bug Bounty</span>. Aqui, vulnerabilidades são encontradas, exploradas e documentadas.
-            </p>
+          <h1
+            aria-label="Segurança ofensiva, documentada."
+            className="font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-balance animate-fade-in-up stagger-1"
+          >
+            Segurança ofensiva,
+            <br />
+            <span aria-hidden="true" className="bg-gradient-to-l from-primary/50 to-accent text-transparent bg-clip-text typing-cursor">
+              {displayText || " "}
+            </span>
+          </h1>
 
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up stagger-3">
-              <a
-                href="#projects"
-                className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-lg border border-primary bg-primary/10 px-7 py-4 sm:py-3.5 font-mono text-sm text-primary transition-all duration-500 hover:bg-primary hover:text-primary-foreground active:scale-[0.98]"
-              >
-                <span className="relative z-10">explore artifacts</span>
-                <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                {/* Animated background */}
-                <span className="absolute inset-0 -translate-x-full bg-primary transition-transform duration-500 group-hover:translate-x-0" />
-              </a>
-              <Link
-                href="/introduction"
-                className="group inline-flex items-center justify-center gap-3 rounded-lg border border-border px-7 py-4 sm:py-3.5 font-mono text-sm text-muted-foreground transition-all duration-300 hover:border-foreground hover:text-foreground hover:bg-secondary/50 active:scale-[0.98]"
-              >
-                <span>introduction</span>
-                <span className="opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
-                  →
-                </span>
-              </Link>
-            </div>
-          </div>
+          <p className="max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground animate-fade-in-up stagger-2">
+            Escrevo sobre pentest web e bug bounty: writeups detalhados de máquinas, técnicas de exploração e projetos
+            open-source. Aqui, vulnerabilidades são encontradas, exploradas e documentadas.
+          </p>
 
-          {/* Right column - ASCII Art / Visual */}
-          <div className="relative animate-scale-in stagger-4">
-            <div className="relative rounded-xl border border-border bg-card/60 glass p-5 sm:p-8 hover-lift">
-              {/* Terminal header dots */}
-              <div className="absolute top-4 left-4 flex items-center gap-2">
-                <div className="h-3 w-3 rounded-full bg-destructive/60 transition-colors hover:bg-destructive" />
-                <div className="h-3 w-3 rounded-full bg-yellow-500/60 transition-colors hover:bg-yellow-500" />
-                <div className="h-3 w-3 rounded-full bg-primary/60 transition-colors hover:bg-primary" />
-              </div>
-              <div className="absolute top-3.5 left-1/2 -translate-x-1/2 bg-background/50 rounded-md px-3 py-1 font-mono text-xs text-muted-foreground">
-                terminal://FXLPZ
-              </div>
-
-              <pre className="mt-6 overflow-x-auto font-mono text-[7px] sm:text-xs md:text-sm leading-relaxed text-primary/80 scrollbar-hide max-w-full">
-                <span>{`┌─────────────────────────────────────┐
-│                                     │
-│ ███████╗███████╗ ██████╗            │
-│ ██╔════╝██╔════╝██╔════╝            │
-│ ███████╗█████╗  ██║                 │
-│ ╚════██║██╔══╝  ██║                 │
-│ ███████║███████╗╚██████╗            │
-│ ╚══════╝╚══════╝ ╚═════╝            │
-│           Sec                       │
-│                                     │
-│   > exploits loaded: 12             │
-│   > status: hacking                 │
-│   > last spark: today               │
-│                                     │
-└─────────────────────────────────────┘`}</span>
-              </pre>
-            </div>
-
-            <div className="absolute -right-2 sm:-right-6 -top-2 sm:-top-6 rounded-lg border border-primary/40 bg-primary/15 glass px-3 sm:px-4 py-1.5 font-mono text-[11px] sm:text-xs text-primary animate-float">
-              <span className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                v0.1.0
-              </span>
-            </div>
-            <div
-              className="absolute -bottom-3 sm:-bottom-6 -left-2 sm:-left-6 rounded-lg border border-border bg-card glass px-3 sm:px-4 py-1.5 font-mono text-[11px] sm:text-xs text-muted-foreground animate-float"
-              style={{ animationDelay: "1s" }}
+          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up stagger-3">
+            <Link
+              href="/blog"
+              className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-lg border border-primary bg-primary/10 px-7 py-4 sm:py-3.5 font-mono text-sm text-primary transition-all duration-500 hover:bg-primary hover:text-primary-foreground active:scale-[0.98]"
             >
-              Dec. 2025
-            </div>
-
-            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full bg-primary/5 blur-3xl" />
+              <span className="relative z-10">ler os writeups</span>
+              <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
+              <span className="absolute inset-0 -translate-x-full bg-primary transition-transform duration-500 group-hover:translate-x-0" />
+            </Link>
+            <a
+              href="#projects"
+              className="group inline-flex items-center justify-center gap-3 rounded-lg border border-border px-7 py-4 sm:py-3.5 font-mono text-sm text-muted-foreground transition-all duration-300 hover:border-foreground hover:text-foreground hover:bg-secondary/50 active:scale-[0.98]"
+            >
+              <span>ver projetos</span>
+              <span className="opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                →
+              </span>
+            </a>
           </div>
+
+          <dl className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 font-mono text-xs text-muted-foreground animate-fade-in-up stagger-4">
+            <div className="flex items-baseline gap-2">
+              <dt className="sr-only">Writeups publicados</dt>
+              <dd>
+                <span className="text-foreground font-semibold">{blogPosts.length}</span> writeups
+              </dd>
+            </div>
+            <span aria-hidden="true" className="h-4 w-px bg-border" />
+            <div className="flex items-baseline gap-2">
+              <dt className="sr-only">Projetos open-source</dt>
+              <dd>
+                <span className="text-foreground font-semibold">{projects.length}</span> projetos
+              </dd>
+            </div>
+            <span aria-hidden="true" className="h-4 w-px bg-border" />
+            <div className="flex items-baseline gap-2">
+              <dt className="sr-only">Plataformas</dt>
+              <dd>THM &amp; HTB</dd>
+            </div>
+          </dl>
         </div>
       </div>
 

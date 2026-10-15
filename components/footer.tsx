@@ -19,13 +19,12 @@ export function Footer() {
             <div className="space-y-3">
               <p className="font-mono text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-primary">Connect</p>
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-balance">
-                {"Let's build something "}
-                <span className="bg-gradient-to-l from-primary/50 to-accent text-transparent bg-clip-text ">together</span>
+                {"Vamos construir algo "}
+                <span className="bg-gradient-to-l from-primary/50 to-accent text-transparent bg-clip-text ">juntos</span>
               </h2>
             </div>
             <p className="max-w-md text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Always interested in collaborations, interesting problems, and conversations about code, design, and
-              everything in between.
+              Aberto a colaborações, problemas interessantes e conversas sobre código, design e segurança.
             </p>
 
             <div className="pt-2">
