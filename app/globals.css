@@ -130,6 +130,71 @@ html, body {
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+.homepage {
+  background: var(--background);
+}
+
+.homepage .hero-surface {
+  background:
+    radial-gradient(ellipse at 78% 35%, color-mix(in oklab, var(--primary) 9%, transparent), transparent 35%),
+    linear-gradient(180deg, color-mix(in oklab, var(--card) 42%, var(--background)), var(--background));
+}
+
+.homepage .project-featured {
+  background: color-mix(in oklab, var(--card) 72%, var(--background));
+}
+
+.ascii-screen {
+  background:
+    radial-gradient(ellipse at 50% 54%, color-mix(in oklab, var(--primary) 9%, transparent), transparent 62%),
+    repeating-linear-gradient(0deg, transparent 0 3px, color-mix(in oklab, var(--foreground) 2%, transparent) 3px 4px);
+}
+
+.ascii-art {
+  animation: ascii-breathe 8s ease-in-out infinite;
+  text-shadow: 0 0 18px color-mix(in oklab, var(--primary) 14%, transparent);
+}
+
+.ascii-scan {
+  position: absolute;
+  z-index: 20;
+  inset: -30% 0 auto;
+  height: 18%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--primary) 10%, transparent), transparent);
+  animation: ascii-scan 9s linear infinite;
+}
+
+.ascii-cursor {
+  animation: ascii-blink 1.2s steps(2, start) infinite;
+}
+
+@keyframes ascii-breathe {
+  0%, 100% { opacity: 0.86; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+
+@keyframes ascii-scan {
+  0%, 72% { transform: translateY(0); opacity: 0; }
+  76% { opacity: 1; }
+  92% { transform: translateY(760%); opacity: 0.5; }
+  100% { transform: translateY(760%); opacity: 0; }
+}
+
+@keyframes ascii-blink {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0.18; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

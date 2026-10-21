@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { blogPosts, getPostBySlug } from "@/lib/blog-data";
 import { BlogPostContent } from "@/components/public/blog/blog-post-content";
-import { Footer } from "@/components/footer";
 import { generateBlogPostStructuredData } from "@/lib/structured-data";
 import type { Metadata } from "next";
 
@@ -21,7 +20,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   if (!post) {
     return {
-      title: "Post Not Found",
+      title: "Artigo não encontrado",
     };
   }
 
@@ -81,9 +80,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div>
-        <BlogPostContent post={post} />
-      </div>
+      <BlogPostContent post={post} />
     </>
   );
 }

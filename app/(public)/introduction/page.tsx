@@ -2,139 +2,90 @@ import { Code2, Layers, FileText, Zap, Bot, Globe } from "lucide-react";
 
 export default function IntroductionPage() {
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] px-4 sm:px-6 pt-28 sm:pt-32 pb-16 sm:pb-20">
-        <div className="mx-auto max-w-4xl">
-          <div className="space-y-6 sm:space-y-8">
-            <div className="space-y-2">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground">
-                Welcome to FXLPZ
-              </p>
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-balance">
-                Where Sec Meets{" "}
-                <span className="bg-gradient-to-l from-primary/50 to-accent text-transparent bg-clip-text">
-                  Creativity
-                </span>
-              </h1>
-            </div>
+    <main className="px-4 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-5xl">
+        <header className="border-b border-border pb-10 sm:pb-14">
+          <p className="mb-4 text-sm font-medium text-primary">Bem-vindo à FXLPZ</p>
+          <h1 className="max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+            Onde tecnologia encontra criatividade
+          </h1>
+          <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            A FXLPZ é uma oficina digital e plataforma de portfólio para desenvolvedores que acreditam em construir em público. Um espaço onde ideias ganham forma, experimentos se desenvolvem e projetos de código aberto ganham vida.
+          </p>
+        </header>
 
-            <p className="text-base sm:text-lg leading-relaxed text-muted-foreground max-w-3xl">
-              FXLPZ is a digital workshop and portfolio platform designed for developers who
-              believe in building in public. It&apos;s a space where ideas take shape, experiments
-              unfold, and open-source projects come to life.
+        <section className="grid gap-8 border-b border-border py-12 sm:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] sm:gap-16 sm:py-16">
+          <div>
+            <p className="mb-3 text-sm font-medium text-primary">Sobre a plataforma</p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Uma oficina digital para desenvolvedores</h2>
+          </div>
+          <div className="space-y-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <p>
+              A FXLPZ não é apenas mais um site de portfólio: é uma vitrine viva de aprendizado contínuo e experimentação. Feita por desenvolvedores para desenvolvedores, representa a ideia de que a melhor forma de aprender é construir, compartilhar e iterar.
+            </p>
+            <p>
+              Seja para explorar integrações atuais de IA, mergulhar em programação de sistemas ou encontrar padrões modernos de desenvolvimento web, a FXLPZ oferece uma janela para projetos reais em diferentes etapas — dos experimentos iniciais a soluções prontas para produção.
+            </p>
+            <p>
+              A plataforma é totalmente de código aberto e incentiva a colaboração e a troca de conhecimento na comunidade de desenvolvimento. Cada projeto, nota de laboratório e linha de código busca inspirar e ensinar.
             </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About Section */}
-      <section className="relative px-4 sm:px-6 py-16 sm:py-20">
-        <div className="mx-auto max-w-4xl">
-          <div className="rounded border border-border/50 bg-card/50 p-6 sm:p-10 backdrop-blur-sm space-y-8">
-            <div className="space-y-4">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary">
-                About the Platform
-              </p>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                A Developer&apos;s Digital Workshop
-              </h2>
-            </div>
-
-            <div className="space-y-6 text-base sm:text-lg leading-relaxed text-muted-foreground">
-              <p>
-                FXLPZ isn&apos;t just another portfolio website·it&apos;s a living, breathing
-                showcase of continuous learning and experimentation. Built by developers, for
-                developers, it represents the philosophy that the best way to learn is to build,
-                share, and iterate.
-              </p>
-
-              <p>
-                Whether you&apos;re exploring cutting-edge AI integrations, diving into systems
-                programming, or looking for modern web development patterns, FXLPZ offers a window
-                into real-world projects at various stages of development·from initial experiments
-                to production-ready solutions.
-              </p>
-
-              <p>
-                The platform is fully open-source, encouraging collaboration and knowledge sharing
-                within the developer community. Every project, every lab note, and every line of
-                code is designed to inspire and educate.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="relative px-4 sm:px-6 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-12 space-y-4 text-center">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary">
-              Platform Features
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Built for Modern Development
-            </h2>
+        <section className="py-12 sm:py-16">
+          <div className="mb-8 max-w-3xl">
+            <p className="mb-3 text-sm font-medium text-primary">Recursos da plataforma</p>
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Feita para o desenvolvimento moderno</h2>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid border-t border-border sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 icon: Code2,
-                title: "Open Source Projects",
+                title: "Projetos de código aberto",
                 description:
-                  "Every project is available on GitHub for learning and collaboration. Transparent development process from start to finish.",
+                  "Cada projeto está disponível no GitHub para aprendizado e colaboração. Processo de desenvolvimento transparente, do início ao fim.",
               },
               {
                 icon: Layers,
-                title: "Developer Workbench",
+                title: "Bancada de desenvolvimento",
                 description:
-                  "A dedicated space for ongoing experiments and prototypes. Watch ideas evolve from concept to implementation.",
+                  "Um espaço dedicado a experimentos e protótipos em andamento. Acompanhe as ideias desde o conceito até a implementação.",
               },
               {
                 icon: FileText,
-                title: "Lab Notes",
+                title: "Notas de laboratório",
                 description:
-                  "Detailed documentation of learning journeys, technical insights, and development patterns discovered along the way.",
+                  "Documentação detalhada de jornadas de aprendizado, descobertas técnicas e padrões de desenvolvimento encontrados pelo caminho.",
               },
               {
                 icon: Zap,
-                title: "Modern Tech Stack",
+                title: "Tecnologias modernas",
                 description:
-                  "Built with cutting-edge technologies including Next.js, React, TypeScript, and Tailwind CSS for optimal performance.",
+                  "Construída com tecnologias atuais, incluindo Next.js, React, TypeScript e Tailwind CSS, para oferecer bom desempenho.",
               },
               {
                 icon: Bot,
-                title: "AI Integration",
+                title: "Integração com IA",
                 description:
-                  "Exploring the intersection of AI and web development with practical implementations and real-world use cases.",
+                  "Explora a interseção entre IA e desenvolvimento web por meio de implementações práticas e usos do mundo real.",
               },
               {
                 icon: Globe,
-                title: "Localization",
+                title: "Localização",
                 description:
-                  "Multi-language support with i18n integration, making projects accessible to a global developer community.",
+                  "Suporte a vários idiomas com integração i18n, tornando os projetos acessíveis a uma comunidade global de desenvolvedores.",
               },
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className="group rounded border border-border/50 bg-card/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-card/80"
-              >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded border border-primary/30 bg-primary/10 text-primary transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
-                  <feature.icon className="h-6 w-6" />
-                </div>
-                <h3 className="mb-2 font-mono text-sm font-semibold uppercase tracking-wider text-foreground">
-                  {feature.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {feature.description}
-                </p>
-              </div>
+            ].map((feature) => (
+              <article key={feature.title} className="border-b border-border py-6 sm:px-5 sm:py-7 [&:nth-child(odd)]:sm:pl-0 [&:nth-child(even)]:sm:border-l [&:nth-child(even)]:sm:pl-6 lg:[&:nth-child(3n+1)]:pl-0 lg:[&:nth-child(3n+2)]:border-l lg:[&:nth-child(3n+2)]:pl-6 lg:[&:nth-child(3n)]:border-l lg:[&:nth-child(3n)]:pl-6">
+                <feature.icon aria-hidden="true" className="mb-4 h-5 w-5 text-primary" />
+                <h3 className="mb-2 text-base font-semibold">{feature.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
+              </article>
             ))}
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </main>
   );
 }

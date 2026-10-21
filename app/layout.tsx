@@ -25,7 +25,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://fxlpz.github.io'),
   title: {
-    default: "FXLPZ · Felipe Rosa's Digital Laboratory",
+    default: "FXLPZ · Felipe Rosa | Segurança ofensiva",
     template: "%s | FXLPZ",
   },
   description:
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     url: "/",
-    title: "FXLPZ · Felipe Rosa's Digital Laboratory",
+    title: "FXLPZ · Felipe Rosa | Segurança ofensiva",
     description: "Especialista em segurança ofensiva, pentest web e bug bounty. Experimentos, writeups e projetos open-source por Felipe da Silva Rosa.",
     siteName: "FXLPZ",
     images: [
@@ -47,13 +47,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FXLPZ · Felipe Rosa's Digital Laboratory",
+        alt: "FXLPZ · Felipe Rosa | Segurança ofensiva",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FXLPZ · Felipe Rosa's Digital Laboratory",
+    title: "FXLPZ · Felipe Rosa | Segurança ofensiva",
     description: "Especialista em segurança ofensiva, pentest web e bug bounty. Experimentos, writeups e projetos open-source.",
     creator: "@FelipeBuffer",
     images: ["/og-image.png"],
@@ -71,14 +71,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
       {
         url: "/icon.svg",
         type: "image/svg+xml",

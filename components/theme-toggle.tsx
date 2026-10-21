@@ -22,8 +22,8 @@ export function ThemeToggle() {
   }
 
   const themes = [
-    { value: "light", icon: Sun, label: "Light" },
-    { value: "dark", icon: Moon, label: "Dark" },
+    { value: "light", icon: Sun, label: "claro" },
+    { value: "dark", icon: Moon, label: "escuro" },
   ];
 
   // Handle undefined theme - default to "dark" as per layout.tsx defaultTheme
@@ -53,7 +53,7 @@ export function ThemeToggle() {
         "group relative flex size-8 items-center justify-center rounded",
         "text-muted-foreground transition-all duration-200 hover:text-primary"
       )}
-      aria-label={`Switch to ${nextTheme.label} theme`}
+      aria-label={`Mudar para o tema ${nextTheme.label}`}
     >
       <CurrentIcon className="size-4" />
       <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-card px-2 py-0.5 font-mono text-[10px] text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100">

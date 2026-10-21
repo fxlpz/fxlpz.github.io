@@ -9,10 +9,9 @@ import { ThemeChanger } from "./theme-changer"
 import Link from "next/link"
 
 const navItems = [
-  { label: "Home", href: "/" },
+  { label: "Início", href: "/" },
   { label: "Sobre", href: "/sobre" },
-  { label: "Projects", href: "/projects" },
-  // { label: "Notes", href: "/notes" },/
+  { label: "Projetos", href: "/projects" },
   { label: "Experiências", href: "/experiencias" },
   { label: "Blog", href: "/blog" },
 ]
@@ -24,7 +23,6 @@ const socialLinks = [
 ]
 
 export function Header() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
@@ -49,72 +47,45 @@ export function Header() {
         isScrolled ? "border-b border-border/50 bg-background/80 backdrop-blur-xl shadow-sm" : "bg-transparent",
       )}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4">
-        <nav className="flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:py-4">
+        <nav aria-label="Navegação principal" className="flex items-center justify-between">
           <Link href="/" className="group flex items-center gap-3">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-primary/50 bg-primary/10 font-mono text-sm text-primary transition-all duration-400 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-primary/25">
-              <span className="glitch">{"⚡"}</span>
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-md border border-primary/50 bg-primary/10 font-mono text-sm font-semibold text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+              <span>F</span>
             </div>
-            <span className="font-mono text-sm tracking-tight">
+            <span className="font-display text-sm font-semibold tracking-tight">
               FXLPZ
-              <span className="bg-gradient-to-l from-primary/50 to-accent bg-clip-text text-transparent font-semibold">
-                SEC
+              <span className="text-primary font-semibold">
+                .SEC
               </span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-1 md:flex">
-            {navItems.map((item, index) => (
+          <div className="hidden items-center gap-1 lg:flex">
+            {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
-                  "relative px-4 py-2.5 font-mono text-xs uppercase tracking-widest transition-all duration-300 rounded-lg",
+                  "border-b-2 px-3 py-2.5 text-sm transition-colors duration-200",
                   isActive(item.href)
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
-                  hoveredIndex === index && !isActive(item.href) && "text-foreground",
+                    ? "border-primary text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground",
                 )}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <span
-                  className={cn(
-                    "absolute left-1.5 text-primary transition-all duration-200",
-                    isActive(item.href)
-                      ? "opacity-100 translate-x-0"
-                      : hoveredIndex === index
-                        ? "opacity-100 translate-x-0"
-                        : "opacity-0 -translate-x-2",
-                  )}
-                >
-                  {">"}
-                </span>
-                <span
-                  className={cn(
-                    "transition-transform duration-200",
-                    (hoveredIndex === index || isActive(item.href)) && "translate-x-2",
-                  )}
-                >
-                  {item.label}
-                </span>
-                <span
-                  className={cn(
-                    "absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full transition-all duration-300",
-                    isActive(item.href) ? "w-6" : hoveredIndex === index ? "w-6" : "w-0",
-                  )}
-                />
+                {item.label}
               </Link>
             ))}
-            <div className="ml-2 flex items-center gap-1">
+            <div className="ml-3 flex items-center gap-1 border-l border-border/70 pl-3">
               <ThemeChanger />
               <ThemeToggle />
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden items-center gap-1 sm:flex">
+            <div className="hidden items-center gap-1 lg:flex">
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
@@ -132,20 +103,12 @@ export function Header() {
               ))}
             </div>
 
-            <div className="hidden h-5 w-px bg-border sm:block" />
-
-            <div className="hidden items-center gap-2.5 font-mono text-xs text-muted-foreground sm:flex px-3 py-1.5 rounded-full bg-secondary/50 border border-border/50">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-              </span>
-              <span>status: building</span>
-            </div>
-
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card/50 md:hidden transition-colors hover:bg-secondary"
-              aria-label="Toggle menu"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card/50 lg:hidden transition-colors hover:bg-secondary"
+              aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               <div className="flex flex-col gap-1.5 w-5">
                 <span
@@ -173,18 +136,19 @@ export function Header() {
 
         {/* Mobile Menu */}
         <div
+          id="mobile-navigation"
           className={cn(
-            "transition-all duration-400 ease-in-out md:hidden bg-background overflow-hidden",
-            isMobileMenuOpen ? "max-h-[100vh] opacity-100 pt-4 pb-6" : "max-h-0 opacity-0",
+            "transition-all duration-400 ease-in-out lg:hidden bg-background overflow-hidden",
+            isMobileMenuOpen ? "max-h-[100vh] opacity-100 pt-4 pb-6" : "max-h-0 opacity-0 pointer-events-none",
           )}
         >
-          <div className="flex flex-col gap-1 border-t border-border/50 pt-4">
+          <nav aria-label="Navegação móvel" className="flex flex-col gap-1 border-t border-border/50 pt-4">
             {navItems.map((item, index) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-3 rounded-lg px-4 py-3.5 font-mono text-sm uppercase tracking-widest text-muted-foreground transition-all duration-200 active:bg-secondary hover:text-foreground hover:bg-secondary/50"
+                className="flex items-center gap-3 rounded-lg px-4 py-3.5 text-sm text-muted-foreground transition-all duration-200 active:bg-secondary hover:text-foreground hover:bg-secondary/50"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <span className="text-primary">{">"}</span>
@@ -213,14 +177,7 @@ export function Header() {
               </div>
             </div>
 
-            <div className="mt-3 flex items-center gap-2.5 px-4 py-3 font-mono text-xs text-muted-foreground bg-secondary/30 rounded-lg mx-4 mb-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-              </span>
-              <span>status: building</span>
-            </div>
-          </div>
+          </nav>
         </div>
       </div>
     </header>

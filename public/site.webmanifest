@@ -1,11 +1,11 @@
 {
-  "name": "FXLPZ · Felipe Rosa's Digital Laboratory",
+  "name": "FXLPZ · Felipe Rosa | Segurança ofensiva",
   "short_name": "FXLPZ",
   "description": "Especialista em segurança ofensiva, pentest web e bug bounty. Experimentos, writeups e projetos open-source por Felipe da Silva Rosa.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0ea5e9",
+  "background_color": "#101614",
+  "theme_color": "#101614",
   "icons": [
     {
       "src": "/icon-light-32x32.png",

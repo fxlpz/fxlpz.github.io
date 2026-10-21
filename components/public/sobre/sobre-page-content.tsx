@@ -48,20 +48,20 @@ export function SobrePageContent() {
   return (
     <section className="px-4 sm:px-6 py-12 sm:py-20">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 sm:mb-16">
-          <p className="mb-3 font-mono text-sm text-muted-foreground">~$ whoami</p>
-          <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl text-balance">
+        <header className="mb-12 max-w-3xl sm:mb-16">
+          <p className="mb-3 text-sm text-muted-foreground">Perfil profissional</p>
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             Sobre o analista
           </h1>
-          <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             Hacker ético e programador. Venho do desenvolvimento full-stack e do suporte a infraestrutura — por isso
             analiso aplicações entendendo como elas foram construídas, indo além do que os scanners automáticos enxergam.
           </p>
-        </div>
+        </header>
 
         <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
           <div className="min-w-0 space-y-10">
-            <div className="space-y-6 text-base sm:text-lg leading-relaxed text-muted-foreground">
+            <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
               <p>
                 Minha atuação em segurança ofensiva é fundamentada em{" "}
                 <strong className="font-semibold text-foreground">3+ anos de desenvolvimento Full Stack (Java/React)</strong>{" "}
@@ -80,7 +80,7 @@ export function SobrePageContent() {
             </div>
 
             <div>
-              <h2 className="mb-6 font-display text-2xl font-semibold tracking-tight">Arsenal</h2>
+              <h2 className="mb-6 border-b border-border/50 pb-3 font-display text-2xl font-semibold tracking-tight">Arsenal</h2>
               <div className="space-y-8">
                 {skillsList.map((skill) => (
                   <div key={skill.category} className="border-t border-border/50 pt-6">
@@ -121,7 +121,7 @@ export function SobrePageContent() {
           </div>
 
           <aside className="lg:border-l lg:border-border/50 lg:pl-10">
-            <dl className="space-y-5">
+            <dl className="border-t border-border/50 pt-2 lg:sticky lg:top-24">
               {facts.map((fact) => (
                 <div key={fact.label} className="border-b border-border/30 pb-4">
                   <dt className="font-mono text-xs text-muted-foreground">{fact.label}</dt>

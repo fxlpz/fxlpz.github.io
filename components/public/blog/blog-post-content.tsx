@@ -34,15 +34,19 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
         pre.style.position = "relative"
         pre.classList.add("group")
         const btn = document.createElement("button")
-        btn.className = "copy-btn absolute bottom-3 right-3 px-2 py-1 font-mono text-[10px] rounded border border-border bg-card/80 text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 select-none opacity-0 group-hover:opacity-100"
-        btn.innerText = "copy"
-        btn.onclick = () => {
+        btn.type = "button"
+        btn.className = "copy-btn absolute bottom-3 right-3 rounded border border-border bg-card px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        btn.innerText = "Copiar código"
+        btn.setAttribute("aria-label", "Copiar código")
+        btn.onclick = async () => {
           const code = pre.querySelector("code")?.innerText || ""
-          navigator.clipboard.writeText(code)
-          btn.innerText = "copied!"
+          await navigator.clipboard.writeText(code)
+          btn.innerText = "Código copiado"
+          btn.setAttribute("aria-label", "Código copiado")
           btn.style.color = "var(--primary)"
           setTimeout(() => {
-            btn.innerText = "copy"
+            btn.innerText = "Copiar código"
+            btn.setAttribute("aria-label", "Copiar código")
             btn.style.color = ""
           }, 2000)
         }
@@ -69,19 +73,19 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
 
   return (
     <>
-      <section className="px-4 sm:px-6 pt-28 sm:pt-32 pb-10 sm:pb-14 border-b border-border/40">
+      <section className="px-4 pt-28 pb-10 sm:px-6 sm:pt-32 sm:pb-14">
         <div className="mx-auto max-w-4xl">
           <Link
             href="/blog"
-            className="group mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+            className="group mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden="true" />
             <span>Voltar ao blog</span>
           </Link>
 
-          <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs text-muted-foreground">
-            <span className="text-primary">{post.category}</span>
-            {post.featured && <span className="text-foreground">Destaque</span>}
+          <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+            <span className="font-medium text-primary">{post.category}</span>
+            {post.featured && <span className="border-l border-border pl-3 text-foreground">Destaque</span>}
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
               {post.date}
@@ -99,12 +103,12 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
             {post.excerpt}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-5 border-t border-border/40 pt-5">
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-5 border-y border-border/50 py-4">
             <div className="text-sm">
               <p className="font-medium text-foreground">{post.author.name}</p>
               <p className="mt-1 text-xs text-muted-foreground">{post.author.role}</p>
             </div>
-            <div className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs text-muted-foreground">
+            <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
               {post.tags.map((tag) => <span key={tag}>#{tag}</span>)}
             </div>
           </div>
@@ -119,18 +123,18 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
             <article
               ref={contentRef}
               className={cn(
-                "prose prose-invert prose-lg max-w-full w-full min-w-0 overflow-hidden opacity-0",
-                "prose-headings:font-semibold prose-headings:tracking-tight",
-                "prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:text-gradient",
-                "prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3",
-                "prose-p:text-muted-foreground prose-p:leading-relaxed",
-                "prose-a:text-primary prose-a:no-underline hover:prose-a:underline",
+                "prose prose-lg max-w-full w-full min-w-0 overflow-hidden opacity-0",
+                "prose-headings:font-display prose-headings:font-semibold prose-headings:tracking-tight",
+                "prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border/50 prose-h2:pb-3 prose-h2:text-2xl prose-h2:text-foreground",
+                "prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-xl prose-h3:text-foreground",
+                "prose-p:text-muted-foreground prose-p:leading-[1.85]",
+                "prose-a:text-primary prose-a:underline prose-a:decoration-primary/40 prose-a:underline-offset-4 hover:prose-a:decoration-primary",
                 "prose-strong:text-foreground prose-strong:font-semibold",
-                "prose-code:text-primary prose-code:bg-secondary/60 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-code:before:content-none prose-code:after:content-none",
-                "prose-pre:bg-card/80 prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl prose-pre:p-4 prose-pre:overflow-x-auto",
+                "prose-code:text-primary prose-code:bg-secondary/50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded-sm prose-code:font-mono prose-code:text-[0.9em] prose-code:before:content-none prose-code:after:content-none",
+                "prose-pre:relative prose-pre:bg-card/50 prose-pre:border prose-pre:border-border/60 prose-pre:rounded-md prose-pre:p-5 prose-pre:overflow-x-auto",
                 "prose-ul:text-muted-foreground prose-ol:text-muted-foreground",
                 "prose-li:marker:text-primary",
-                "prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-blockquote:italic",
+                "prose-blockquote:border-l-2 prose-blockquote:border-primary/70 prose-blockquote:bg-secondary/20 prose-blockquote:px-5 prose-blockquote:py-1 prose-blockquote:text-muted-foreground prose-blockquote:not-italic",
                 isVisible && "animate-fade-in-up",
               )}
               style={{ animationDelay: "350ms" }}
@@ -142,12 +146,12 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
               className={cn("hidden lg:block opacity-0", isVisible && "animate-fade-in-up")}
               style={{ animationDelay: "400ms" }}
             >
-              <div className="sticky top-32 flex flex-col gap-3">
-                <span className="font-mono text-xs text-muted-foreground mb-2 text-center">compartilhar</span>
+              <div className="sticky top-32 flex flex-col gap-2 border-l border-border/60 pl-4">
+                <span className="mb-2 text-xs text-muted-foreground">Compartilhar</span>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-10 w-10 rounded-lg border-border/50 hover:border-primary/50 hover:bg-primary/10 bg-transparent"
+                  className="h-10 w-10 rounded-md border-border/50 bg-transparent hover:border-primary/50 hover:bg-primary/10 focus-visible:ring-primary"
                   onClick={() =>
                     window.open(
                       `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(post.title)}`,
@@ -161,7 +165,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-10 w-10 rounded-lg border-border/50 hover:border-primary/50 hover:bg-primary/10 bg-transparent"
+                  className="h-10 w-10 rounded-md border-border/50 bg-transparent hover:border-primary/50 hover:bg-primary/10 focus-visible:ring-primary"
                   onClick={() =>
                     window.open(
                       `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`,
@@ -176,7 +180,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
                   variant="outline"
                   size="icon"
                   className={cn(
-                    "h-10 w-10 rounded-lg border-border/50 hover:border-primary/50 hover:bg-primary/10",
+                    "h-10 w-10 rounded-md border-border/50 hover:border-primary/50 hover:bg-primary/10 focus-visible:ring-primary",
                     copied && "border-primary/50 bg-primary/10",
                   )}
                   onClick={handleCopyLink}
@@ -190,11 +194,11 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
 
           {/* Mobile Share Bar */}
           <div className="mt-10 flex items-center justify-center gap-4 border-t border-border/40 pt-8 lg:hidden">
-            <span className="font-mono text-xs text-muted-foreground">compartilhar:</span>
+            <span className="text-xs text-muted-foreground">Compartilhar</span>
             <Button
               variant="outline"
               size="icon"
-              className="h-9 w-9 rounded-lg border-border/50 bg-transparent"
+              className="h-9 w-9 rounded-md border-border/50 bg-transparent focus-visible:ring-primary"
               onClick={() =>
                 window.open(
                   `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(post.title)}`,
@@ -208,7 +212,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
             <Button
               variant="outline"
               size="icon"
-              className="h-9 w-9 rounded-lg border-border/50 bg-transparent"
+              className="h-9 w-9 rounded-md border-border/50 bg-transparent focus-visible:ring-primary"
               onClick={() =>
                 window.open(
                   `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`,
@@ -222,7 +226,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
             <Button
               variant="outline"
               size="icon"
-              className={cn("h-9 w-9 rounded-lg border-border/50", copied && "border-primary/50 bg-primary/10")}
+              className={cn("h-9 w-9 rounded-md border-border/50 focus-visible:ring-primary", copied && "border-primary/50 bg-primary/10")}
               onClick={handleCopyLink}
             >
               <Link2 className="h-4 w-4" />
@@ -240,7 +244,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
               <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Continue lendo</h2>
               <Link
                 href="/blog"
-                className="group inline-flex shrink-0 items-center gap-2 pb-1 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+                className="group inline-flex shrink-0 items-center gap-2 pb-1 text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
               >
                 ver todos
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
@@ -252,10 +256,10 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
                 <Link
                   key={relatedPost.id}
                   href={`/blog/${relatedPost.slug}`}
-                  className="group block border-b border-border/50 py-5"
+                  className="group block border-b border-border/50 py-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
                 >
-                  <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-muted-foreground">
-                    <span className="text-primary/90">{relatedPost.category}</span>
+                  <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                    <span className="font-medium text-primary">{relatedPost.category}</span>
                     <span>{relatedPost.date}</span>
                     <span>{relatedPost.readTime}</span>
                   </div>
@@ -272,8 +276,9 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
+        type="button"
         className={cn(
-          "fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/90 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-card",
+          "fixed bottom-8 right-8 z-50 flex h-11 w-11 items-center justify-center rounded-md border border-border bg-card transition-opacity duration-200 hover:border-primary/50 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
           showScrollTop ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0",
         )}
         aria-label="Voltar ao topo"

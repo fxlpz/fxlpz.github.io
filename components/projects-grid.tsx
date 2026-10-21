@@ -78,29 +78,29 @@ export const statusLabel: Record<string, string> = {
 
 export function ProjectsGrid() {
   return (
-    <section id="projects" className="px-4 sm:px-6 py-16 sm:py-24">
+    <section id="projects" className="scroll-mt-24 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 sm:mb-14">
-          <p className="mb-3 font-mono text-sm text-muted-foreground">Repositórios</p>
+          <p className="mb-3 font-mono text-xs text-primary">Repositórios</p>
           <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">Projetos open-source</h2>
         </div>
 
-        <ul className="grid gap-px overflow-hidden rounded-xl border border-border/60 bg-border/60 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <li
               key={project.id}
               className={cn(
-                "group relative flex flex-col bg-background p-6 sm:p-7 transition-colors duration-300 hover:bg-secondary/30",
-                project.featured && "sm:col-span-2 lg:col-span-2",
+                "group relative flex flex-col border-b border-border/70 py-6 transition-colors duration-300 hover:border-primary/50 sm:py-7",
+                project.featured && "project-featured border border-primary/30 p-6 sm:p-8 lg:col-span-2 lg:grid lg:grid-cols-[1fr_auto] lg:gap-x-10",
               )}
             >
-              <div className="mb-4 flex items-center justify-between font-mono text-xs text-muted-foreground">
+              <div className="mb-5 flex items-center justify-between font-mono text-xs text-muted-foreground lg:col-span-2">
                 <span className="flex items-center gap-2">
                   <span
                     aria-hidden="true"
                     className={cn(
                       "h-1.5 w-1.5 rounded-full",
-                      project.status === "shipped" ? "bg-primary" : "bg-yellow-500",
+                      project.status === "shipped" ? "bg-primary" : "bg-muted-foreground",
                     )}
                   />
                   {statusLabel[project.status]}
@@ -108,12 +108,12 @@ export function ProjectsGrid() {
                 <span>{project.year}</span>
               </div>
 
-              <h3 className="font-display text-xl font-semibold tracking-tight transition-colors group-hover:text-gradient">
+              <h3 className={cn("font-display font-semibold tracking-tight transition-colors group-hover:text-primary", project.featured ? "text-2xl sm:text-3xl" : "text-lg")}>
                 {project.title}
               </h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
+              <p className={cn("mt-3 flex-1 text-sm leading-relaxed text-muted-foreground", project.featured && "max-w-2xl lg:col-start-1")}>{project.description}</p>
 
-              <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-muted-foreground">
+              <div className={cn("mt-5 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-muted-foreground", project.featured && "lg:col-start-1")}>
                 {project.tags.map((tag) => (
                   <span key={tag}>#{tag.toLowerCase().replace(/\s+/g, "-")}</span>
                 ))}
@@ -123,10 +123,10 @@ export function ProjectsGrid() {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex w-fit items-center gap-2 text-sm text-foreground after:absolute after:inset-0 after:content-['']"
+                className={cn("mt-6 inline-flex w-fit items-center gap-2 text-sm text-foreground after:absolute after:inset-0 after:content-['']", project.featured && "lg:col-start-2 lg:row-start-2 lg:row-span-2 lg:self-end")}
               >
                 <Github className="h-4 w-4" aria-hidden="true" />
-                <span>ver no GitHub</span>
+                <span>Ver no GitHub</span>
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
               </a>
             </li>

@@ -4,12 +4,12 @@ import type { Metadata } from "next";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fxlpz.github.io';
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description: "Explore open source projects, experiments, and tools. From web applications to systems programming, dive into the code.",
-  keywords: ["open source", "projects", "web development", "systems programming", "experiments"],
+  title: "Projetos",
+  description: "Explore ferramentas open-source, experimentos e projetos de segurança e desenvolvimento.",
+  keywords: ["código aberto", "projetos", "segurança", "desenvolvimento", "experimentos"],
   openGraph: {
-    title: "Projects · FXLPZ",
-    description: "Explore open source projects, experiments, and tools.",
+    title: "Projetos · FXLPZ",
+    description: "Ferramentas open-source, experimentos e projetos de segurança e desenvolvimento.",
     url: `${baseUrl}/projects`,
     type: "website",
     images: [
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projects · FXLPZ",
-    description: "Explore open source projects, experiments, and tools.",
+    title: "Projetos · FXLPZ",
+    description: "Ferramentas open-source, experimentos e projetos de segurança e desenvolvimento.",
     images: [`${baseUrl}/og-image-projects.png`],
   },
   alternates: {

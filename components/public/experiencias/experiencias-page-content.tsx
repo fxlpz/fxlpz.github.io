@@ -67,37 +67,37 @@ export function ExperienciasPageContent() {
   return (
     <section className="px-4 sm:px-6 py-12 sm:py-20">
       <div className="mx-auto max-w-7xl">
-        <header className="mb-12 sm:mb-16">
-          <p className="mb-3 font-mono text-sm text-muted-foreground">Trajetória</p>
-          <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl text-balance">
+        <header className="mb-12 max-w-3xl sm:mb-16">
+          <p className="mb-3 text-sm text-muted-foreground">Trajetória profissional</p>
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             Experiências &amp; certificações
           </h1>
-          <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             Minha trajetória em cibersegurança, suporte de infraestrutura e desenvolvimento full-stack, junto à formação e às certificações técnicas.
           </p>
         </header>
 
         <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
           <div>
-            <h2 className="mb-6 flex items-center gap-2 font-display text-2xl font-semibold">
+            <h2 className="mb-6 flex items-center gap-2 border-b border-border/50 pb-3 font-display text-2xl font-semibold tracking-tight">
               <Briefcase className="h-5 w-5 text-primary" aria-hidden="true" />
               Histórico profissional
             </h2>
             <ol className="border-l border-border/60">
               {experiences.map((exp) => (
-                <li key={exp.company} className="relative border-b border-border/40 py-7 pl-6 first:pt-0 sm:pl-8 sm:py-9">
-                  <span className="absolute -left-[4.5px] top-9 h-2 w-2 rounded-full bg-primary ring-4 ring-background first:top-2" aria-hidden="true" />
-                  <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                <li key={exp.company} className="relative border-b border-border/40 py-7 pl-6 first:pt-4 sm:pl-8 sm:py-9">
+                  <span className="absolute -left-[4.5px] top-9 h-2 w-2 rounded-full bg-primary ring-4 ring-background" aria-hidden="true" />
+                  <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
                     <div>
-                      <h3 className="font-display text-xl font-semibold tracking-tight">{exp.role}</h3>
+                      <h3 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">{exp.role}</h3>
                       <p className="mt-1 text-sm text-primary">{exp.company}</p>
                     </div>
-                    <p className="font-mono text-xs text-muted-foreground">{exp.period}</p>
+                    <p className="text-sm text-muted-foreground">{exp.period}</p>
                   </div>
-                  <ul className="mb-5 list-disc space-y-2 pl-4 text-sm leading-relaxed text-muted-foreground marker:text-primary">
+                  <ul className="mb-5 list-disc space-y-2 pl-4 text-sm leading-relaxed text-muted-foreground marker:text-primary sm:text-base">
                     {exp.description.map((item) => <li key={item}>{item}</li>)}
                   </ul>
-                  <div className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-muted-foreground">
+                  <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground">
                     {exp.tech.map((tech) => <span key={tech}>{tech}</span>)}
                   </div>
                 </li>
@@ -129,7 +129,7 @@ export function ExperienciasPageContent() {
             </section>
 
             <section>
-              <h2 className="mb-6 flex items-center gap-2 font-display text-2xl font-semibold">
+              <h2 className="mb-6 flex items-center gap-2 border-b border-border/50 pb-3 font-display text-2xl font-semibold tracking-tight">
                 <GraduationCap className="h-5 w-5 text-primary" aria-hidden="true" />
                 Formação
               </h2>

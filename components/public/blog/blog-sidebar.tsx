@@ -24,7 +24,7 @@ export function BlogSidebar({
   })
 
   const categories = [
-    { name: "Todos", count: blogPosts.length, slug: "all" },
+    { name: "Todas", count: blogPosts.length, slug: "all" },
     ...Array.from(categoryMap.entries()).map(([name, count]) => ({
       name,
       count,
@@ -45,22 +45,26 @@ export function BlogSidebar({
     .map(([tag]) => tag)
 
   return (
-    <aside className="space-y-10 lg:sticky lg:top-28 lg:self-start">
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
-        <Input
-          type="search"
-          aria-label="Buscar artigos"
-          placeholder="Buscar artigos"
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-10 bg-transparent border-border/60 text-sm"
-        />
+    <aside className="space-y-9 lg:sticky lg:top-28 lg:self-start">
+      <div className="border-b border-border/60 pb-7">
+        <label htmlFor="blog-search" className="mb-3 block font-display text-lg font-semibold">Buscar no caderno</label>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+          <Input
+            id="blog-search"
+            type="search"
+            aria-label="Buscar artigos"
+            placeholder="Título, tema ou palavra-chave"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            className="border-border/60 bg-transparent pl-10 text-sm focus-visible:ring-primary"
+          />
+        </div>
       </div>
 
-      <div>
+      <div className="border-b border-border/60 pb-7">
         <h2 className="mb-4 font-display text-lg font-semibold">Categorias</h2>
-        <ul className="space-y-1">
+        <ul className="divide-y divide-border/40 border-y border-border/40">
           {categories.map((category) => (
             <li key={category.slug}>
               <button
@@ -68,14 +72,14 @@ export function BlogSidebar({
                 aria-pressed={activeCategory === category.slug}
                 onClick={() => onCategoryChange(category.slug)}
                 className={cn(
-                  "flex w-full items-center justify-between rounded-md px-3 py-2 text-sm transition-colors",
+                  "flex w-full items-center justify-between py-2.5 text-left text-sm transition-colors focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
                   activeCategory === category.slug
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground",
+                    ? "font-medium text-primary"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 <span>{category.name}</span>
-                <span className="font-mono text-xs">{category.count}</span>
+                <span className="text-xs tabular-nums text-muted-foreground">{category.count}</span>
               </button>
             </li>
           ))}
@@ -83,14 +87,14 @@ export function BlogSidebar({
       </div>
 
       <div>
-        <h2 className="mb-4 font-display text-lg font-semibold">Tags</h2>
-        <div className="flex flex-wrap gap-x-3 gap-y-2 font-mono text-xs">
+        <h2 className="mb-4 font-display text-lg font-semibold">Temas recorrentes</h2>
+        <div className="flex flex-wrap gap-x-3 gap-y-2 text-sm">
           {popularTags.map((tag) => (
             <button
               key={tag}
               type="button"
               onClick={() => onSearchChange(tag)}
-              className="text-muted-foreground transition-colors hover:text-primary"
+              className="text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary hover:decoration-primary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               #{tag}
             </button>

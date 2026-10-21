@@ -131,7 +131,7 @@ export function ThemeChanger() {
           "hover:text-primary hover:bg-primary/10",
           isOpen && "bg-primary/10 text-primary",
         )}
-        aria-label="Change color theme"
+        aria-label="Mudar cor de destaque"
       >
         <Palette className="h-4 w-4" />
         <span
@@ -143,7 +143,7 @@ export function ThemeChanger() {
             "group-hover:opacity-100 group-hover:-bottom-9",
           )}
         >
-          Colors
+          Cores
         </span>
       </button>
 
@@ -158,7 +158,7 @@ export function ThemeChanger() {
               "p-3.5 animate-fade-in",
             )}
           >
-            <div className="mb-2 font-mono text-xs text-muted-foreground uppercase tracking-wider">Select Theme</div>
+            <div className="mb-2 font-mono text-xs text-muted-foreground uppercase tracking-wider">Escolha uma cor</div>
             <div className="space-y-1.5">
               {Object.entries(themes).map(([key, theme]) => (
                 <button

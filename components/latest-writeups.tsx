@@ -10,18 +10,21 @@ const latestPosts = [...blogPosts]
 
 export function LatestWriteups() {
   return (
-    <section id="writeups" className="px-4 sm:px-6 py-16 sm:py-24 border-t border-border/30">
+    <section id="writeups" className="px-4 py-14 sm:px-6 sm:py-20 border-t border-border/50">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 sm:mb-10 flex items-end justify-between gap-6">
           <div>
-            <p className="mb-3 font-mono text-sm text-muted-foreground">Caderno de campo</p>
+            <p className="mb-3 flex items-center gap-2 font-mono text-xs text-primary">
+              <span aria-hidden="true" className="text-muted-foreground">[&gt;_]</span>
+              Caderno de campo
+            </p>
             <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">Writeups recentes</h2>
           </div>
           <Link
             href="/blog"
-            className="group inline-flex shrink-0 items-center gap-2 pb-1 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+            className="group inline-flex shrink-0 items-center gap-2 border-b border-primary/50 pb-1 text-sm text-foreground transition-colors hover:text-primary"
           >
-            <span>ver todos</span>
+            <span>Ver todas as investigações</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
@@ -31,15 +34,15 @@ export function LatestWriteups() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group grid gap-3 border-b border-border/50 py-6 transition-colors hover:bg-secondary/20 sm:grid-cols-[150px_1fr_auto] sm:items-center sm:gap-8 sm:py-7"
+              className="group grid gap-3 border-b border-border/50 py-6 transition-colors sm:grid-cols-[130px_1fr_auto] sm:items-center sm:gap-8 sm:py-7"
             >
-              <div className="flex items-center gap-3 font-mono text-xs text-muted-foreground sm:flex-col sm:items-start sm:gap-1">
+              <div className="flex items-center gap-3 text-xs text-muted-foreground sm:flex-col sm:items-start sm:gap-1">
                 <span>{format(new Date(post.date), "d MMM yyyy", { locale: ptBR })}</span>
                 <span className="hidden h-px w-5 bg-border sm:block" />
-                <span className="text-primary/80">{post.category}</span>
+                <span className="text-primary">{post.category}</span>
               </div>
               <div className="min-w-0">
-                <h3 className="font-display text-lg font-medium leading-snug transition-colors group-hover:text-gradient sm:text-xl">
+                <h3 className="font-display text-lg font-medium leading-snug transition-colors group-hover:text-primary sm:text-xl">
                   {post.title}
                 </h3>
                 <p className="mt-2 line-clamp-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">

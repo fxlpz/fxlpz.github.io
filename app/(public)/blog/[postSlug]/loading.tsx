@@ -1,39 +1,38 @@
 export default function Loading() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <article className="mx-auto max-w-4xl">
-        {/* Header skeleton */}
-        <header className="mb-12 space-y-6">
-          <div className="h-12 w-3/4 bg-muted animate-pulse rounded-lg" />
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-muted animate-pulse" />
+    <main aria-busy="true" aria-label="Carregando o artigo" className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+      <p role="status" className="sr-only">Carregando o artigo…</p>
+      <article aria-hidden="true" className="mx-auto max-w-3xl">
+        <header className="mb-10 border-b border-border pb-8 sm:mb-12 sm:pb-10">
+          <div className="mb-5 h-3 w-28 bg-muted" />
+          <div className="mb-6 h-10 w-3/4 max-w-2xl bg-muted sm:h-12" />
+          <div className="mb-6 flex items-center gap-4">
+            <div className="h-10 w-10 rounded-full bg-muted" />
             <div className="space-y-2">
-              <div className="h-4 w-32 bg-muted animate-pulse rounded" />
-              <div className="h-3 w-48 bg-muted animate-pulse rounded" />
+              <div className="h-3 w-32 bg-muted" />
+              <div className="h-3 w-44 bg-muted" />
             </div>
           </div>
-          <div className="flex gap-4">
-            <div className="h-6 w-20 bg-muted animate-pulse rounded-full" />
-            <div className="h-6 w-20 bg-muted animate-pulse rounded-full" />
-            <div className="h-6 w-20 bg-muted animate-pulse rounded-full" />
+          <div className="flex gap-3">
+            <div className="h-4 w-16 bg-muted" />
+            <div className="h-4 w-20 bg-muted" />
+            <div className="h-4 w-16 bg-muted" />
           </div>
         </header>
-
-        {/* Content skeleton */}
-        <div className="prose prose-lg dark:prose-invert max-w-none space-y-4">
-          <div className="h-4 w-full bg-muted animate-pulse rounded" />
-          <div className="h-4 w-full bg-muted animate-pulse rounded" />
-          <div className="h-4 w-5/6 bg-muted animate-pulse rounded" />
-          <div className="h-8 w-1/2 bg-muted animate-pulse rounded mt-8 mb-4" />
-          <div className="h-4 w-full bg-muted animate-pulse rounded" />
-          <div className="h-4 w-full bg-muted animate-pulse rounded" />
-          <div className="h-4 w-4/5 bg-muted animate-pulse rounded" />
-          <div className="h-32 w-full bg-muted animate-pulse rounded-lg mt-6 mb-6" />
-          <div className="h-4 w-full bg-muted animate-pulse rounded" />
-          <div className="h-4 w-full bg-muted animate-pulse rounded" />
-          <div className="h-4 w-3/4 bg-muted animate-pulse rounded" />
+        <div className="space-y-4 border-b border-border pb-10 sm:pb-12">
+          <div className="h-4 w-full bg-muted" />
+          <div className="h-4 w-full bg-muted" />
+          <div className="h-4 w-5/6 bg-muted" />
+          <div className="h-7 w-1/2 bg-muted pt-2" />
+          <div className="h-4 w-full bg-muted" />
+          <div className="h-4 w-full bg-muted" />
+          <div className="h-4 w-4/5 bg-muted" />
+          <div className="my-7 h-28 w-full bg-muted" />
+          <div className="h-4 w-full bg-muted" />
+          <div className="h-4 w-full bg-muted" />
+          <div className="h-4 w-3/4 bg-muted" />
         </div>
       </article>
-    </div>
+    </main>
   )
 }

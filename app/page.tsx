@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/hero-section"
 import { LatestWriteups } from "@/components/latest-writeups"
 import { ProjectsGrid } from "@/components/projects-grid"
 import { Footer } from "@/components/footer"
-import { CursorGlow } from "@/components/cursor-glow"
 import { generateWebsiteStructuredData, generatePersonStructuredData } from "@/lib/structured-data"
 
 export default function Home() {
@@ -21,8 +20,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personStructuredData) }}
       />
-      <main className="relative min-h-screen overflow-hidden scanlines">
-        <CursorGlow />
+      <main className="homepage relative min-h-screen overflow-hidden">
         <div className="relative z-10">
           <Header />
           <HeroSection />

@@ -2,48 +2,24 @@ import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="max-w-2xl text-center">
-        <div className="mb-8">
-          {/* 404 Glitch Effect */}
-          <h1 className="text-9xl font-bold mb-4 font-mono relative">
-            <span className="glitch inline-block">404</span>
-          </h1>
-          <div className="h-1 w-32 bg-primary mx-auto mb-8" />
-          <h2 className="text-3xl font-bold mb-4">Page Not Found</h2>
-          <p className="text-muted-foreground text-lg mb-2">
-            The page you're looking for doesn't exist or has been moved.
-          </p>
-          <p className="text-muted-foreground">
-            Let's get you back on track.
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Link
-            href="/"
-            className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
-          >
-            Go Home
-          </Link>
-          <Link
-            href="/blog"
-            className="px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium hover:bg-secondary/80 transition-colors"
-          >
-            Browse Blog
-          </Link>
-          <Link
-            href="/projects"
-            className="px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium hover:bg-secondary/80 transition-colors"
-          >
-            View Projects
-          </Link>
-        </div>
-
-        <div className="text-sm text-muted-foreground font-mono">
-          <span className="text-primary">&gt;</span> Error code: 404_NOT_FOUND
+    <main className="flex min-h-[70vh] items-center px-4 py-16 sm:px-6">
+      <div className="mx-auto w-full max-w-4xl border-y border-border py-10 sm:py-14">
+        <div className="grid gap-8 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-12">
+          <p className="text-6xl font-semibold tracking-tight text-primary sm:text-7xl">404</p>
+          <div>
+            <p className="mb-3 text-sm font-medium text-primary">Página não encontrada</p>
+            <h1 className="mb-4 text-3xl font-semibold tracking-tight sm:text-4xl">Este endereço não está disponível</h1>
+            <p className="max-w-2xl leading-relaxed text-muted-foreground">
+              A página que você procura não existe ou foi movida. Escolha um destes caminhos para continuar.
+            </p>
+            <nav aria-label="Páginas principais" className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-5">
+              <Link href="/" className="text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">Início</Link>
+              <Link href="/blog" className="text-sm font-medium text-foreground underline-offset-4 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">Blog</Link>
+              <Link href="/projects" className="text-sm font-medium text-foreground underline-offset-4 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">Projetos</Link>
+            </nav>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
